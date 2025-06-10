@@ -515,7 +515,7 @@ jobs:
       - name: Display Pages URL
         run: |
           echo "🌐 GitHub Pages will be available at:"
-          echo "https://kajee27.github.io/ai-visual-testing-poc/"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
           echo ""
           echo "📝 Note: It may take 5-10 minutes for the site to become available"
           echo "📝 Make sure GitHub Pages is enabled in repository Settings → Pages"
