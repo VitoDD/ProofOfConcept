@@ -1,0 +1,66 @@
+{
+  "full-1749565620446": {
+    "id": "full-1749565620446",
+    "name": "full",
+    "timestamp": 1749565620446,
+    "status": "approved",
+    "issue": {
+      "name": "full",
+      "baselineImagePath": "baseline-full",
+      "currentImagePath": "current-full",
+      "diffImagePath": "diff-full",
+      "diffPercentage": 100,
+      "diffPixelCount": 1269760
+    },
+    "confirmedAt": 1749565721919,
+    "isIntended": true
+  },
+  "header-1749565620447": {
+    "id": "header-1749565620447",
+    "name": "header",
+    "timestamp": 1749565620447,
+    "status": "approved",
+    "issue": {
+      "name": "header",
+      "baselineImagePath": "baseline-header",
+      "currentImagePath": "current-header",
+      "diffImagePath": "diff-header",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749565721920,
+    "isIntended": true
+  },
+  "main-1749565620447": {
+    "id": "main-1749565620447",
+    "name": "main",
+    "timestamp": 1749565620447,
+    "status": "approved",
+    "issue": {
+      "name": "main",
+      "baselineImagePath": "baseline-main",
+      "currentImagePath": "current-main",
+      "diffImagePath": "diff-main",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749565721920,
+    "isIntended": true
+  },
+  "form-1749565620448": {
+    "id": "form-1749565620448",
+    "name": "form",
+    "timestamp": 1749565620448,
+    "status": "approved",
+    "issue": {
+      "name": "form",
+      "baselineImagePath": "baseline-form",
+      "currentImagePath": "current-form",
+      "diffImagePath": "diff-form",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749565721920,
+    "isIntended": true
+  }
+}

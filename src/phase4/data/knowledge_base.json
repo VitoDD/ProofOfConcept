@@ -26880,5 +26880,3161 @@
       "reason": "failure"
     },
     "timestamp": "2025-05-21T16:18:41.422Z"
+  },
+  {
+    "issue": {
+      "comparisonResult": {
+        "name": "full",
+        "baselineImagePath": "baseline-full",
+        "currentImagePath": "current-full",
+        "diffImagePath": "diff-full",
+        "width": 1280,
+        "height": 992,
+        "diffPixelCount": 1269760,
+        "totalPixels": 1269760,
+        "diffPercentage": 100,
+        "hasDifferences": true,
+        "dimensionMismatch": true,
+        "baselineDimensions": {
+          "width": 1280,
+          "height": 800
+        },
+        "currentDimensions": {
+          "width": 1280,
+          "height": 992
+        },
+        "aiAnalysis": {
+          "hasDifferences": true,
+          "diffPercentage": 100,
+          "analysis": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+          "changeType": "VISUAL",
+          "severity": "HIGH",
+          "confidence": 0.9,
+          "isFalsePositive": false,
+          "falsePositive": false,
+          "summary": "Visual differences detected (100.00%)",
+          "description": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+          "rawAnalysis": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+          "affectedElements": [
+            "UI Element"
+          ],
+          "usedMultiImageAnalysis": true
+        }
+      },
+      "affectedElements": [
+        {
+          "selector": "#demo-form",
+          "attributes": {
+            "tagName": "FORM",
+            "id": "demo-form",
+            "className": "",
+            "text": "Full Name:\nContact Email:\nSubmit Feedback"
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 280.734375,
+            "width": 1160,
+            "height": 209.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 19,
+              "context": "Element with ID \"demo-form\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#full_name",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "full_name",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 311.328125,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with ID \"full_name\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#contact_email",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "contact_email",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 396.921875,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with ID \"contact_email\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".container",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "container",
+            "text": "Test Application\n\nVisual Testing with AI\n\nDemo Form\nFull Name:\nContact Email:\nSubmit Feedback\nInformation\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code\n\n© 2025 AI Visual Testing Demo"
+          },
+          "boundingBox": {
+            "x": 20,
+            "y": 0,
+            "width": 1240,
+            "height": 991.6875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 207,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 211,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 215,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 10,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 120,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 323,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 330,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 418,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 432,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 121,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 299,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 306,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 368,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 382,
+              "context": "Element with class \"container\""
+            }
+          ],
+          "overlapPercentage": 0.99596647129262
+        },
+        {
+          "selector": ".header",
+          "attributes": {
+            "tagName": "H1",
+            "className": "header",
+            "text": "Test Application"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 41.4375,
+            "width": 1200,
+            "height": 51.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 203,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 12,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 324,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 419,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 300,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 369,
+              "context": "Element with class \"header\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".subtitle",
+          "attributes": {
+            "tagName": "P",
+            "className": "subtitle",
+            "text": "Visual Testing with AI"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 96.8125,
+            "width": 1200,
+            "height": 30.71875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 13,
+              "context": "Element with class \"subtitle\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".card",
+          "attributes": {
+            "tagName": "SECTION",
+            "className": "card",
+            "text": "Information\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 544.921875,
+            "width": 1200,
+            "height": 308.171875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 17,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 37,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 142,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 143,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 144,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 145,
+              "context": "Element with class \"card\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".form-group",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "form-group",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 451.921875,
+            "width": 1110,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 20,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 25,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 30,
+              "context": "Element with class \"form-group\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".btn.btn-primary",
+          "attributes": {
+            "tagName": "BUTTON",
+            "className": "btn btn-primary",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 90,
+            "y": 451.921875,
+            "width": 164.515625,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 221,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 222,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 360,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 363,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 327,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 330,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn-primary\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn-primary\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".information-paragraph",
+          "attributes": {
+            "tagName": "P",
+            "className": "information-paragraph",
+            "text": "This is a sample application for testing visual regression with AI tools. This text should be truncated."
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 643.125,
+            "width": 200,
+            "height": 25.59375
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 39,
+              "context": "Element with class \"information-paragraph\""
+            }
+          ],
+          "overlapPercentage": 1
+        }
+      ],
+      "codeReferences": [
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 19,
+          "context": "Element with ID \"demo-form\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with ID \"full_name\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with ID \"contact_email\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 203,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 12,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 324,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 419,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 300,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 369,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 13,
+          "context": "Element with class \"subtitle\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 17,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 37,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 142,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 143,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 144,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 145,
+          "context": "Element with class \"card\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 20,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 25,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 30,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 221,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 222,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 360,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 363,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 327,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 330,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 39,
+          "context": "Element with class \"information-paragraph\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 207,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 211,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 215,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 10,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 120,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 323,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 330,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 418,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 432,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 121,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 299,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 306,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 368,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 382,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5488907796054705
+        }
+      ],
+      "aiAnalysis": {
+        "hasDifferences": true,
+        "diffPercentage": 100,
+        "analysis": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+        "changeType": "VISUAL",
+        "severity": "HIGH",
+        "confidence": 0.9,
+        "isFalsePositive": false,
+        "falsePositive": false,
+        "summary": "Visual differences detected (100.00%)",
+        "description": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+        "rawAnalysis": "Upon reviewing the provided images, here is the analysis based on the specified criteria:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: The text in the \"Information\" section.\n   - **Issue**: The text \"This is a sample applicati…\" is truncated with an ellipsis.\n   - **Impact**: Users may not be able to read the full description, which could lead to confusion about the application's purpose.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues detected. Text remains readable.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts detected. Elements appear to be in their expected positions.\n\n**Significance of Changes**:\n- The text truncation in the \"Information\" section is significant as it affects readability and user understanding.\n\n**Intentional Design Updates or Accidental Regressions**:\n- The text truncation is likely an accidental regression rather than an intentional design update.\n\n**False Positives**:\n- The detected 100% difference is likely due to the placeholder image used for the baseline. The actual UI changes are minimal and focused on text truncation.\n\n**Conclusion**:\n- The primary actionable UI bug is the text truncation in the \"Information\" section. Other differences are acceptable variations or testing artifacts.",
+        "affectedElements": [
+          "UI Element"
+        ],
+        "usedMultiImageAnalysis": true
+      },
+      "confidence": 0.55,
+      "recommendations": [
+        {
+          "text": "Review code in index.html at line 19. This appears to be the source of the visual difference.",
+          "codeChange": {
+            "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+            "lineNumber": 19,
+            "currentContent": "                <form id=\"demo-form\">",
+            "suggestedFix": "Verify changes or revert to previous version"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "fix": {
+      "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/styles.css",
+      "lineNumber": 83,
+      "oldCode": "background-color: #3498db;",
+      "newCode": "    background-color: #3498db;"
+    },
+    "result": {
+      "status": "failed",
+      "diffPercentage": 99.97041015625,
+      "reason": "failure"
+    },
+    "timestamp": "2025-06-10T14:27:01.920Z"
+  },
+  {
+    "issue": {
+      "comparisonResult": {
+        "name": "header",
+        "baselineImagePath": "baseline-header",
+        "currentImagePath": "current-header",
+        "diffImagePath": "diff-header",
+        "width": 1280,
+        "height": 800,
+        "diffPixelCount": 1024000,
+        "totalPixels": 1024000,
+        "diffPercentage": 100,
+        "hasDifferences": true,
+        "dimensionMismatch": true,
+        "baselineDimensions": {
+          "width": 1280,
+          "height": 800
+        },
+        "currentDimensions": {
+          "width": 1200,
+          "height": 102
+        },
+        "aiAnalysis": {
+          "hasDifferences": true,
+          "diffPercentage": 100,
+          "analysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+          "changeType": "VISUAL",
+          "severity": "HIGH",
+          "confidence": 0.9,
+          "isFalsePositive": false,
+          "falsePositive": false,
+          "summary": "Visual differences detected (100.00%)",
+          "description": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+          "rawAnalysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+          "affectedElements": [
+            "UI Element"
+          ],
+          "usedMultiImageAnalysis": true
+        }
+      },
+      "affectedElements": [
+        {
+          "selector": "#demo-form",
+          "attributes": {
+            "tagName": "FORM",
+            "id": "demo-form",
+            "className": "",
+            "text": "Full Name:\nContact Email:\nSubmit Feedback"
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 280.734375,
+            "width": 1160,
+            "height": 209.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 19,
+              "context": "Element with ID \"demo-form\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#full_name",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "full_name",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 311.328125,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with ID \"full_name\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#contact_email",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "contact_email",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 396.921875,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with ID \"contact_email\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".container",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "container",
+            "text": "Test Application\n\nVisual Testing with AI\n\nDemo Form\nFull Name:\nContact Email:\nSubmit Feedback\nInformation\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code\n\n© 2025 AI Visual Testing Demo"
+          },
+          "boundingBox": {
+            "x": 20,
+            "y": 0,
+            "width": 1240,
+            "height": 991.6875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 207,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 211,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 215,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 10,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 120,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 323,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 330,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 418,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 432,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 121,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 299,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 306,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 368,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 382,
+              "context": "Element with class \"container\""
+            }
+          ],
+          "overlapPercentage": 0.9748427672955975
+        },
+        {
+          "selector": ".header",
+          "attributes": {
+            "tagName": "H1",
+            "className": "header",
+            "text": "Test Application"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 41.4375,
+            "width": 1200,
+            "height": 51.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 203,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 12,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 324,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 419,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 300,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 369,
+              "context": "Element with class \"header\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".subtitle",
+          "attributes": {
+            "tagName": "P",
+            "className": "subtitle",
+            "text": "Visual Testing with AI"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 96.8125,
+            "width": 1200,
+            "height": 30.71875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 13,
+              "context": "Element with class \"subtitle\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".card",
+          "attributes": {
+            "tagName": "SECTION",
+            "className": "card",
+            "text": "Information\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 544.921875,
+            "width": 1200,
+            "height": 308.171875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 17,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 37,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 142,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 143,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 144,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 145,
+              "context": "Element with class \"card\""
+            }
+          ],
+          "overlapPercentage": 0.8147340668255336
+        },
+        {
+          "selector": ".form-group",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "form-group",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 451.921875,
+            "width": 1110,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 20,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 25,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 30,
+              "context": "Element with class \"form-group\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".btn.btn-primary",
+          "attributes": {
+            "tagName": "BUTTON",
+            "className": "btn btn-primary",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 90,
+            "y": 451.921875,
+            "width": 164.515625,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 221,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 222,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 360,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 363,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 327,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 330,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn-primary\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn-primary\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".information-paragraph",
+          "attributes": {
+            "tagName": "P",
+            "className": "information-paragraph",
+            "text": "This is a sample application for testing visual regression with AI tools. This text should be truncated."
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 643.125,
+            "width": 200,
+            "height": 25.59375
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 39,
+              "context": "Element with class \"information-paragraph\""
+            }
+          ],
+          "overlapPercentage": 1
+        }
+      ],
+      "codeReferences": [
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 19,
+          "context": "Element with ID \"demo-form\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with ID \"full_name\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with ID \"contact_email\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 203,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 12,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 324,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 419,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 300,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 369,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 13,
+          "context": "Element with class \"subtitle\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 20,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 25,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 30,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 221,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 222,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 360,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 363,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 327,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 330,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 39,
+          "context": "Element with class \"information-paragraph\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 207,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 211,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 215,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 10,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 120,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 323,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 330,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 418,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 432,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 121,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 299,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 306,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 368,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 382,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 17,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 37,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 142,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 143,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 144,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 145,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        }
+      ],
+      "aiAnalysis": {
+        "hasDifferences": true,
+        "diffPercentage": 100,
+        "analysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+        "changeType": "VISUAL",
+        "severity": "HIGH",
+        "confidence": 0.9,
+        "isFalsePositive": false,
+        "falsePositive": false,
+        "summary": "Visual differences detected (100.00%)",
+        "description": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+        "rawAnalysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - No text truncation is observed. The text \"Test Application\" and \"Visual Testing with AI\" are fully visible in the current version.\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability. The contrast remains adequate.\n\n4. **LAYOUT SHIFTS**: \n   - There are no significant layout shifts. The elements appear to be in the same positions as in the baseline.\n\n### Conclusion:\n\n- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.\n- **Significance to User Experience**: The changes do not impact the user experience.\n- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or non-impactful.\n- **False Positives**: The detected 100% difference is likely a false positive due to testing artifacts, as no significant issues were found.",
+        "affectedElements": [
+          "UI Element"
+        ],
+        "usedMultiImageAnalysis": true
+      },
+      "confidence": 0.55,
+      "recommendations": [
+        {
+          "text": "Review code in index.html at line 19. This appears to be the source of the visual difference.",
+          "codeChange": {
+            "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+            "lineNumber": 19,
+            "currentContent": "                <form id=\"demo-form\">",
+            "suggestedFix": "Verify changes or revert to previous version"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "fix": {
+      "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/styles.css",
+      "lineNumber": 83,
+      "oldCode": "background-color: #3498db;",
+      "newCode": "    background-color: #3498db;"
+    },
+    "result": {
+      "status": "failed",
+      "diffPercentage": 99.96318359375,
+      "reason": "failure"
+    },
+    "timestamp": "2025-06-10T14:27:03.358Z"
+  },
+  {
+    "issue": {
+      "comparisonResult": {
+        "name": "main",
+        "baselineImagePath": "baseline-main",
+        "currentImagePath": "current-main",
+        "diffImagePath": "diff-main",
+        "width": 1280,
+        "height": 800,
+        "diffPixelCount": 1024000,
+        "totalPixels": 1024000,
+        "diffPercentage": 100,
+        "hasDifferences": true,
+        "dimensionMismatch": true,
+        "baselineDimensions": {
+          "width": 1280,
+          "height": 800
+        },
+        "currentDimensions": {
+          "width": 1200,
+          "height": 670
+        },
+        "aiAnalysis": {
+          "hasDifferences": true,
+          "diffPercentage": 100,
+          "analysis": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+          "changeType": "VISUAL",
+          "severity": "HIGH",
+          "confidence": 0.9,
+          "isFalsePositive": false,
+          "falsePositive": false,
+          "summary": "Visual differences detected (100.00%)",
+          "description": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+          "rawAnalysis": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+          "affectedElements": [
+            "UI Element"
+          ],
+          "usedMultiImageAnalysis": true
+        }
+      },
+      "affectedElements": [
+        {
+          "selector": "#demo-form",
+          "attributes": {
+            "tagName": "FORM",
+            "id": "demo-form",
+            "className": "",
+            "text": "Full Name:\nContact Email:\nSubmit Feedback"
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 280.734375,
+            "width": 1160,
+            "height": 209.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 19,
+              "context": "Element with ID \"demo-form\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#full_name",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "full_name",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 311.328125,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with ID \"full_name\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#contact_email",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "contact_email",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 396.921875,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with ID \"contact_email\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".container",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "container",
+            "text": "Test Application\n\nVisual Testing with AI\n\nDemo Form\nFull Name:\nContact Email:\nSubmit Feedback\nInformation\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code\n\n© 2025 AI Visual Testing Demo"
+          },
+          "boundingBox": {
+            "x": 20,
+            "y": 0,
+            "width": 1240,
+            "height": 991.6875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 207,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 211,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 215,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 10,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 120,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 323,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 330,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 418,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 432,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 121,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 299,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 306,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 368,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 382,
+              "context": "Element with class \"container\""
+            }
+          ],
+          "overlapPercentage": 0.9748427672955975
+        },
+        {
+          "selector": ".header",
+          "attributes": {
+            "tagName": "H1",
+            "className": "header",
+            "text": "Test Application"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 41.4375,
+            "width": 1200,
+            "height": 51.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 203,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 12,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 324,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 419,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 300,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 369,
+              "context": "Element with class \"header\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".subtitle",
+          "attributes": {
+            "tagName": "P",
+            "className": "subtitle",
+            "text": "Visual Testing with AI"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 96.8125,
+            "width": 1200,
+            "height": 30.71875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 13,
+              "context": "Element with class \"subtitle\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".card",
+          "attributes": {
+            "tagName": "SECTION",
+            "className": "card",
+            "text": "Information\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 544.921875,
+            "width": 1200,
+            "height": 308.171875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 17,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 37,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 142,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 143,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 144,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 145,
+              "context": "Element with class \"card\""
+            }
+          ],
+          "overlapPercentage": 0.8147340668255336
+        },
+        {
+          "selector": ".form-group",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "form-group",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 451.921875,
+            "width": 1110,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 20,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 25,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 30,
+              "context": "Element with class \"form-group\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".btn.btn-primary",
+          "attributes": {
+            "tagName": "BUTTON",
+            "className": "btn btn-primary",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 90,
+            "y": 451.921875,
+            "width": 164.515625,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 221,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 222,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 360,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 363,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 327,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 330,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn-primary\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn-primary\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".information-paragraph",
+          "attributes": {
+            "tagName": "P",
+            "className": "information-paragraph",
+            "text": "This is a sample application for testing visual regression with AI tools. This text should be truncated."
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 643.125,
+            "width": 200,
+            "height": 25.59375
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 39,
+              "context": "Element with class \"information-paragraph\""
+            }
+          ],
+          "overlapPercentage": 1
+        }
+      ],
+      "codeReferences": [
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 19,
+          "context": "Element with ID \"demo-form\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with ID \"full_name\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with ID \"contact_email\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 203,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 12,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 324,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 419,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 300,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 369,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 13,
+          "context": "Element with class \"subtitle\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 20,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 25,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 30,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 221,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 222,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 360,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 363,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 327,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 330,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 39,
+          "context": "Element with class \"information-paragraph\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 207,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 211,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 215,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 10,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 120,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 323,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 330,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 418,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 432,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 121,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 299,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 306,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 368,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 382,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 17,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 37,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 142,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 143,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 144,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 145,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        }
+      ],
+      "aiAnalysis": {
+        "hasDifferences": true,
+        "diffPercentage": 100,
+        "analysis": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+        "changeType": "VISUAL",
+        "severity": "HIGH",
+        "confidence": 0.9,
+        "isFalsePositive": false,
+        "falsePositive": false,
+        "summary": "Visual differences detected (100.00%)",
+        "description": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+        "rawAnalysis": "After analyzing the images, here are the findings:\n\n1. **TEXT TRUNCATION**:\n   - **Affected Element**: Information section text.\n   - **Issue**: The text \"This is a sample application...\" is truncated with an ellipsis.\n   - **Impact**: Users may not receive full information, leading to confusion.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**:\n   - No missing buttons, icons, or UI components were detected.\n\n3. **COLOR CONTRAST ISSUES**:\n   - No significant color contrast issues were identified.\n\n4. **LAYOUT SHIFTS**:\n   - No significant layout shifts were observed.\n\n### Additional Analysis:\n\n1. **Significance to User Experience**:\n   - The text truncation could impact user understanding, especially if the truncated information is crucial.\n\n2. **Intentional Design Updates or Accidental Regressions**:\n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**:\n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary issue is text truncation in the information section. This should be addressed to ensure users have access to complete information. Other differences are likely acceptable variations or testing artifacts.",
+        "affectedElements": [
+          "UI Element"
+        ],
+        "usedMultiImageAnalysis": true
+      },
+      "confidence": 0.55,
+      "recommendations": [
+        {
+          "text": "Review code in index.html at line 19. This appears to be the source of the visual difference.",
+          "codeChange": {
+            "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+            "lineNumber": 19,
+            "currentContent": "                <form id=\"demo-form\">",
+            "suggestedFix": "Verify changes or revert to previous version"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "fix": {
+      "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/styles.css",
+      "lineNumber": 83,
+      "oldCode": "background-color: #3498db;",
+      "newCode": "    background-color: #3498db;"
+    },
+    "result": {
+      "status": "failed",
+      "diffPercentage": 99.96796875,
+      "reason": "failure"
+    },
+    "timestamp": "2025-06-10T14:27:04.786Z"
+  },
+  {
+    "issue": {
+      "comparisonResult": {
+        "name": "form",
+        "baselineImagePath": "baseline-form",
+        "currentImagePath": "current-form",
+        "diffImagePath": "diff-form",
+        "width": 1280,
+        "height": 800,
+        "diffPixelCount": 1024000,
+        "totalPixels": 1024000,
+        "diffPercentage": 100,
+        "hasDifferences": true,
+        "dimensionMismatch": true,
+        "baselineDimensions": {
+          "width": 1280,
+          "height": 800
+        },
+        "currentDimensions": {
+          "width": 1160,
+          "height": 209
+        },
+        "aiAnalysis": {
+          "hasDifferences": true,
+          "diffPercentage": 100,
+          "analysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+          "changeType": "VISUAL",
+          "severity": "HIGH",
+          "confidence": 0.9,
+          "isFalsePositive": false,
+          "falsePositive": false,
+          "summary": "Visual differences detected (100.00%)",
+          "description": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+          "rawAnalysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+          "affectedElements": [
+            "UI Element"
+          ],
+          "usedMultiImageAnalysis": true
+        }
+      },
+      "affectedElements": [
+        {
+          "selector": "#demo-form",
+          "attributes": {
+            "tagName": "FORM",
+            "id": "demo-form",
+            "className": "",
+            "text": "Full Name:\nContact Email:\nSubmit Feedback"
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 280.734375,
+            "width": 1160,
+            "height": 209.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 19,
+              "context": "Element with ID \"demo-form\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#full_name",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "full_name",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 311.328125,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with ID \"full_name\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": "#contact_email",
+          "attributes": {
+            "tagName": "INPUT",
+            "id": "contact_email",
+            "className": "form-control",
+            "text": ""
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 396.921875,
+            "width": 1132,
+            "height": 40
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with ID \"contact_email\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 22,
+              "context": "Element with class \"form-control\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 27,
+              "context": "Element with class \"form-control\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".container",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "container",
+            "text": "Test Application\n\nVisual Testing with AI\n\nDemo Form\nFull Name:\nContact Email:\nSubmit Feedback\nInformation\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code\n\n© 2025 AI Visual Testing Demo"
+          },
+          "boundingBox": {
+            "x": 20,
+            "y": 0,
+            "width": 1240,
+            "height": 991.6875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 207,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 211,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 215,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 10,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 120,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 323,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 330,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 418,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 432,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 121,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 299,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 306,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 368,
+              "context": "Element with class \"container\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 382,
+              "context": "Element with class \"container\""
+            }
+          ],
+          "overlapPercentage": 0.9748427672955975
+        },
+        {
+          "selector": ".header",
+          "attributes": {
+            "tagName": "H1",
+            "className": "header",
+            "text": "Test Application"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 41.4375,
+            "width": 1200,
+            "height": 51.1875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 203,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 12,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 324,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 419,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 300,
+              "context": "Element with class \"header\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 369,
+              "context": "Element with class \"header\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".subtitle",
+          "attributes": {
+            "tagName": "P",
+            "className": "subtitle",
+            "text": "Visual Testing with AI"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 96.8125,
+            "width": 1200,
+            "height": 30.71875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 13,
+              "context": "Element with class \"subtitle\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".card",
+          "attributes": {
+            "tagName": "SECTION",
+            "className": "card",
+            "text": "Information\n\nThis is a sample application for testing visual regression with AI tools. This text should be truncated.\n\nCaptures screenshots\nDetects visual differences\nUses AI to analyze changes\nLocalizes issues in code"
+          },
+          "boundingBox": {
+            "x": 40,
+            "y": 544.921875,
+            "width": 1200,
+            "height": 308.171875
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 17,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 37,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 142,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 143,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 144,
+              "context": "Element with class \"card\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 145,
+              "context": "Element with class \"card\""
+            }
+          ],
+          "overlapPercentage": 0.8147340668255336
+        },
+        {
+          "selector": ".form-group",
+          "attributes": {
+            "tagName": "DIV",
+            "className": "form-group",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 110,
+            "y": 451.921875,
+            "width": 1110,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 20,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 25,
+              "context": "Element with class \"form-group\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 30,
+              "context": "Element with class \"form-group\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".btn.btn-primary",
+          "attributes": {
+            "tagName": "BUTTON",
+            "className": "btn btn-primary",
+            "text": "Submit Feedback"
+          },
+          "boundingBox": {
+            "x": 90,
+            "y": 451.921875,
+            "width": 164.515625,
+            "height": 38
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 221,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+              "lineNumber": 222,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 360,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+              "lineNumber": 363,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 327,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 330,
+              "context": "Element with class \"btn\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 31,
+              "context": "Element with class \"btn-primary\""
+            },
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+              "lineNumber": 146,
+              "context": "Element with class \"btn-primary\""
+            }
+          ],
+          "overlapPercentage": 1
+        },
+        {
+          "selector": ".information-paragraph",
+          "attributes": {
+            "tagName": "P",
+            "className": "information-paragraph",
+            "text": "This is a sample application for testing visual regression with AI tools. This text should be truncated."
+          },
+          "boundingBox": {
+            "x": 60,
+            "y": 643.125,
+            "width": 200,
+            "height": 25.59375
+          },
+          "codeReferences": [
+            {
+              "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+              "lineNumber": 39,
+              "context": "Element with class \"information-paragraph\""
+            }
+          ],
+          "overlapPercentage": 1
+        }
+      ],
+      "codeReferences": [
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 19,
+          "context": "Element with ID \"demo-form\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with ID \"full_name\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with ID \"contact_email\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 22,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 27,
+          "context": "Element with class \"form-control\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 203,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 12,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 324,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 419,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 300,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 369,
+          "context": "Element with class \"header\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 13,
+          "context": "Element with class \"subtitle\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 20,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 25,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 30,
+          "context": "Element with class \"form-group\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 221,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 222,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 360,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 363,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 327,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 330,
+          "context": "Element with class \"btn\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 31,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 146,
+          "context": "Element with class \"btn-primary\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 39,
+          "context": "Element with class \"information-paragraph\"",
+          "confidence": 0.55
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 207,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 211,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/static-confirm.html",
+          "lineNumber": 215,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 10,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 120,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 323,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 330,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 418,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm.html",
+          "lineNumber": 432,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 121,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 299,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 306,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 368,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 382,
+          "context": "Element with class \"container\"",
+          "confidence": 0.5430817610062894
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 17,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+          "lineNumber": 37,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 142,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 143,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 144,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        },
+        {
+          "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/confirm-with-report.html",
+          "lineNumber": 145,
+          "context": "Element with class \"card\"",
+          "confidence": 0.4990518683770218
+        }
+      ],
+      "aiAnalysis": {
+        "hasDifferences": true,
+        "diffPercentage": 100,
+        "analysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+        "changeType": "VISUAL",
+        "severity": "HIGH",
+        "confidence": 0.9,
+        "isFalsePositive": false,
+        "falsePositive": false,
+        "summary": "Visual differences detected (100.00%)",
+        "description": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+        "rawAnalysis": "After analyzing the provided images, here are the findings:\n\n1. **TEXT TRUNCATION**: \n   - The text on the \"Submit Feedback\" button is truncated with ellipsis in the current version, whereas it was fully visible in the baseline.\n   - **Impact**: Users may not fully understand the button's function due to the incomplete text.\n   - **Severity**: Medium\n\n2. **MISSING ELEMENTS**: \n   - No buttons, icons, or UI components are completely missing in the current version.\n\n3. **COLOR CONTRAST ISSUES**: \n   - There are no significant color changes affecting text readability.\n\n4. **LAYOUT SHIFTS**: \n   - No significant layout shifts are observed that would confuse users.\n\n### Additional Analysis:\n\n1. **Significance of Changes**: \n   - The text truncation on the button is significant as it affects the clarity of the button's purpose.\n\n2. **Intentional Design Updates or Accidental Regressions**: \n   - The text truncation appears to be an accidental regression rather than an intentional design update.\n\n3. **False Positives**: \n   - The detected changes are not false positives; the text truncation is a genuine issue.\n\n### Conclusion:\n\nThe primary actionable UI bug detected is the text truncation on the \"Submit Feedback\" button. This issue should be addressed to ensure users can fully understand the button's function. Other differences are likely acceptable variations or testing artifacts.",
+        "affectedElements": [
+          "UI Element"
+        ],
+        "usedMultiImageAnalysis": true
+      },
+      "confidence": 0.55,
+      "recommendations": [
+        {
+          "text": "Review code in index.html at line 19. This appears to be the source of the visual difference.",
+          "codeChange": {
+            "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/index.html",
+            "lineNumber": 19,
+            "currentContent": "                <form id=\"demo-form\">",
+            "suggestedFix": "Verify changes or revert to previous version"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "fix": {
+      "filePath": "/home/runner/work/ProofOfConcept/ProofOfConcept/public/styles.css",
+      "lineNumber": 83,
+      "oldCode": "background-color: #3498db;",
+      "newCode": "    background-color: #3498db;"
+    },
+    "result": {
+      "status": "failed",
+      "diffPercentage": 99.96572265625,
+      "reason": "failure"
+    },
+    "timestamp": "2025-06-10T14:27:06.215Z"
   }
 ]

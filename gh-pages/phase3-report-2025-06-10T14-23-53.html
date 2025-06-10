@@ -1,0 +1,2506 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Visual Testing - Phase 3 Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    .report-header {
+      text-align: center;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+    .timestamp {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    .comparison-container {
+      margin-bottom: 40px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .comparison-header {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    .comparison-header h3 {
+      margin: 0;
+    }
+    .images-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 15px;
+      gap: 10px;
+    }
+    .image-box {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+    .image-box img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+    }
+    .image-label {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .info-container {
+      padding: 15px;
+      border-top: 1px solid #ddd;
+    }
+    .info-container p {
+      margin: 5px 0;
+    }
+    .diff-info {
+      font-weight: bold;
+    }
+    .diff-high {
+      color: #e74c3c;
+    }
+    .diff-medium {
+      color: #f39c12;
+    }
+    .diff-low {
+      color: #2ecc71;
+    }
+    .ai-analysis {
+      margin-top: 20px;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #3498db;
+    }
+    .false-positive {
+      background-color: #eafaf1;
+      border-left-color: #2ecc71;
+    }
+    .code-localization {
+      margin-top: 20px;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #9b59b6;
+    }
+    .code-reference {
+      font-family: monospace;
+      background-color: #f1f1f1;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 3px;
+      white-space: pre-wrap;
+    }
+    .recommendations {
+      margin-top: 20px;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #e67e22;
+    }
+    .recommendation {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    .recommendation-confidence {
+      float: right;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    .confidence-high {
+      color: #2ecc71;
+    }
+    .confidence-medium {
+      color: #f39c12;
+    }
+    .confidence-low {
+      color: #e74c3c;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .tab.active {
+      border: 1px solid #ddd;
+      border-bottom-color: white;
+      border-radius: 5px 5px 0 0;
+      margin-bottom: -1px;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .summary {
+      background-color: #f8f9fa;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .filter-button {
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .filter-button.active {
+      background-color: #3498db;
+      color: white;
+      border-color: #2980b9;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 14px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="report-header">
+    <h1>AI Visual Testing - Phase 3 Report</h1>
+    <p class="timestamp">Generated on 6/10/2025, 2:23:53 PM</p>
+  </div>
+  
+  <div class="summary">
+    <h2>Test Summary</h2>
+    <p>Total tests: 4</p>
+    <p>Tests with differences: 4</p>
+    <p>False positives detected: 0</p>
+    <p>Tests with localized issues: 4</p>
+    <p>Tests with recommendations: 4</p>
+  </div>
+  
+  <div class="filters">
+    <button class="filter-button active" data-filter="all">All</button>
+    <button class="filter-button" data-filter="differences">With Differences</button>
+    <button class="filter-button" data-filter="localized">With Localized Issues</button>
+    <button class="filter-button" data-filter="recommendations">With Recommendations</button>
+    <button class="filter-button" data-filter="false-positives">False Positives</button>
+  </div>
+
+  <div class="comparison-container filter-item filter-differences filter-localized filter-recommendations">
+    <div class="comparison-header">
+      <h3>full</h3>
+    </div>
+    
+    <div class="images-container">
+      <div class="image-box">
+        <div class="image-label">Baseline</div>
+        <img src="baseline-full" alt="Baseline Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Current</div>
+        <img src="current-full" alt="Current Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Difference</div>
+        <img src="diff-full" alt="Difference Image">
+      </div>
+    </div>
+    
+    <div class="info-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="overview-full">Overview</div>
+        <div class="tab" data-tab="ai-analysis-full">AI Analysis</div>
+        <div class="tab" data-tab="code-localization-full">Code Localization</div>
+        <div class="tab" data-tab="recommendations-full">Recommendations</div>
+      </div>
+      
+      <div class="tab-content active" id="overview-full">
+        <p>Test result: <strong>Differences Detected</strong></p>
+        <p class="diff-info diff-high">Difference: 100.00% (1269760 pixels)</p>
+        <p>Threshold: undefined</p>
+        <p>Resolution: 1280x992</p>
+        <p>Page Name: full</p>
+        
+      </div>
+      
+      <div class="tab-content" id="ai-analysis-full">
+
+        <div class="ai-analysis">
+          <h4>AI Analysis</h4>
+          
+          <p><strong>Change Type:</strong> VISUAL</p>
+          <p><strong>Severity:</strong> HIGH</p>
+          <p><strong>Confidence:</strong> 90%</p>
+          <p><strong>False Positive:</strong> No</p>
+          <p><strong>Summary:</strong> Visual differences detected (100.00%)</p>
+          <p><strong>Description:</strong> After analyzing the images, here are the findings:
+
+1. **TEXT TRUNCATION**:
+   - **Affected Element**: Information section text.
+   - **Issue**: The text "This is a sample application..." is truncated with an ellipsis.
+   - **Impact**: Users may not receive the full information intended.
+   - **Severity**: Medium
+
+2. **MISSING ELEMENTS**:
+   - No missing buttons, icons, or UI components were detected.
+
+3. **COLOR CONTRAST ISSUES**:
+   - No significant color contrast issues were identified.
+
+4. **LAYOUT SHIFTS**:
+   - No significant layout shifts were observed.
+
+**Significance of Changes**:
+- The text truncation could impact user understanding, but other changes are minimal.
+
+**Intentional vs. Accidental**:
+- The text truncation seems accidental, possibly due to a layout or styling change.
+
+**False Positives**:
+- The detected 100% difference is likely due to the baseline image being a placeholder. The actual UI changes are minimal.
+
+**Conclusion**:
+- The primary actionable issue is the text truncation in the Information section. Other differences are likely acceptable variations or testing artifacts.</p>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="code-localization-full">
+
+        <div class="code-localization">
+          <h4>Issue 1</h4>
+          
+          <h5>Affected UI Elements</h5>
+          <ul>
+
+            <li>
+              <strong>#demo-form</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#full_name</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#contact_email</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.container</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.header</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.subtitle</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.card</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.form-group</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.btn.btn-primary</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.information-paragraph</strong> 
+              (Overlap: 100%)
+            </li>
+
+          </ul>
+          
+          <h5>Code References</h5>
+          <ul>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 19)
+              <div class="code-reference">Element with ID &quot;demo-form&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with ID &quot;full_name&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with ID &quot;contact_email&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 203)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 12)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 324)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 419)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 300)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 369)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 13)
+              <div class="code-reference">Element with class &quot;subtitle&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 17)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 37)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 142)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 143)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 144)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 145)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 20)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 25)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 30)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 221)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 222)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 360)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 363)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 327)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 39)
+              <div class="code-reference">Element with class &quot;information-paragraph&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 207)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 211)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 215)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 10)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 120)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 323)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 418)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 432)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 121)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 299)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 306)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 368)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 382)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="recommendations-full">
+
+        <div class="recommendations">
+          <h4>Recommendation 1</h4>
+          <ul>
+
+            <li class="recommendation">
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 70%
+              </span>
+              <p>Review code in index.html at line 19. This appears to be the source of the visual difference.</p>
+
+              <div class="code-reference">
+                <strong>File:</strong> index.html
+                <strong>Line:</strong> 19
+                <strong>Current Code:</strong>                 &lt;form id=&quot;demo-form&quot;&gt;
+                <strong>Suggested Fix:</strong> Verify changes or revert to previous version
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison-container filter-item filter-differences filter-localized filter-recommendations">
+    <div class="comparison-header">
+      <h3>header</h3>
+    </div>
+    
+    <div class="images-container">
+      <div class="image-box">
+        <div class="image-label">Baseline</div>
+        <img src="baseline-header" alt="Baseline Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Current</div>
+        <img src="current-header" alt="Current Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Difference</div>
+        <img src="diff-header" alt="Difference Image">
+      </div>
+    </div>
+    
+    <div class="info-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="overview-header">Overview</div>
+        <div class="tab" data-tab="ai-analysis-header">AI Analysis</div>
+        <div class="tab" data-tab="code-localization-header">Code Localization</div>
+        <div class="tab" data-tab="recommendations-header">Recommendations</div>
+      </div>
+      
+      <div class="tab-content active" id="overview-header">
+        <p>Test result: <strong>Differences Detected</strong></p>
+        <p class="diff-info diff-high">Difference: 100.00% (1024000 pixels)</p>
+        <p>Threshold: undefined</p>
+        <p>Resolution: 1280x800</p>
+        <p>Page Name: header</p>
+        
+      </div>
+      
+      <div class="tab-content" id="ai-analysis-header">
+
+        <div class="ai-analysis">
+          <h4>AI Analysis</h4>
+          
+          <p><strong>Change Type:</strong> VISUAL</p>
+          <p><strong>Severity:</strong> HIGH</p>
+          <p><strong>Confidence:</strong> 90%</p>
+          <p><strong>False Positive:</strong> No</p>
+          <p><strong>Summary:</strong> Visual differences detected (100.00%)</p>
+          <p><strong>Description:</strong> After analyzing the provided images, here are the findings:
+
+1. **TEXT TRUNCATION**: 
+   - No text truncation is observed. The text "Test Application" and "Visual Testing with AI" are fully visible in the current version.
+
+2. **MISSING ELEMENTS**: 
+   - No buttons, icons, or UI components are missing in the current version.
+
+3. **COLOR CONTRAST ISSUES**: 
+   - There are no significant color changes that make the text harder to read. The contrast remains adequate.
+
+4. **LAYOUT SHIFTS**: 
+   - There are no significant layout shifts. The elements appear to be in the same position as in the baseline.
+
+### Conclusion:
+
+- **No actionable UI bugs were detected.** The differences are likely acceptable variations or testing artifacts.
+- **Significance to User Experience**: The changes do not impact the user experience.
+- **Intentional Design Updates or Accidental Regressions**: The changes appear to be intentional or insignificant.
+- **False Positives**: The detected changes are false positives, as no real issues are present.
+
+Overall, the UI remains consistent and user-friendly.</p>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="code-localization-header">
+
+        <div class="code-localization">
+          <h4>Issue 1</h4>
+          
+          <h5>Affected UI Elements</h5>
+          <ul>
+
+            <li>
+              <strong>#demo-form</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#full_name</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#contact_email</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.container</strong> 
+              (Overlap: 97%)
+            </li>
+
+            <li>
+              <strong>.header</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.subtitle</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.card</strong> 
+              (Overlap: 81%)
+            </li>
+
+            <li>
+              <strong>.form-group</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.btn.btn-primary</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.information-paragraph</strong> 
+              (Overlap: 100%)
+            </li>
+
+          </ul>
+          
+          <h5>Code References</h5>
+          <ul>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 19)
+              <div class="code-reference">Element with ID &quot;demo-form&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with ID &quot;full_name&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with ID &quot;contact_email&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 203)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 12)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 324)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 419)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 300)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 369)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 13)
+              <div class="code-reference">Element with class &quot;subtitle&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 20)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 25)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 30)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 221)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 222)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 360)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 363)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 327)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 39)
+              <div class="code-reference">Element with class &quot;information-paragraph&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 207)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 211)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 215)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>index.html</strong> (Line 10)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 120)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 323)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 418)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 432)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 121)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 299)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 306)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 368)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 382)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 17)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 37)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 142)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 143)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 144)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 145)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="recommendations-header">
+
+        <div class="recommendations">
+          <h4>Recommendation 1</h4>
+          <ul>
+
+            <li class="recommendation">
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 70%
+              </span>
+              <p>Review code in index.html at line 19. This appears to be the source of the visual difference.</p>
+
+              <div class="code-reference">
+                <strong>File:</strong> index.html
+                <strong>Line:</strong> 19
+                <strong>Current Code:</strong>                 &lt;form id=&quot;demo-form&quot;&gt;
+                <strong>Suggested Fix:</strong> Verify changes or revert to previous version
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison-container filter-item filter-differences filter-localized filter-recommendations">
+    <div class="comparison-header">
+      <h3>main</h3>
+    </div>
+    
+    <div class="images-container">
+      <div class="image-box">
+        <div class="image-label">Baseline</div>
+        <img src="baseline-main" alt="Baseline Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Current</div>
+        <img src="current-main" alt="Current Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Difference</div>
+        <img src="diff-main" alt="Difference Image">
+      </div>
+    </div>
+    
+    <div class="info-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="overview-main">Overview</div>
+        <div class="tab" data-tab="ai-analysis-main">AI Analysis</div>
+        <div class="tab" data-tab="code-localization-main">Code Localization</div>
+        <div class="tab" data-tab="recommendations-main">Recommendations</div>
+      </div>
+      
+      <div class="tab-content active" id="overview-main">
+        <p>Test result: <strong>Differences Detected</strong></p>
+        <p class="diff-info diff-high">Difference: 100.00% (1024000 pixels)</p>
+        <p>Threshold: undefined</p>
+        <p>Resolution: 1280x800</p>
+        <p>Page Name: main</p>
+        
+      </div>
+      
+      <div class="tab-content" id="ai-analysis-main">
+
+        <div class="ai-analysis">
+          <h4>AI Analysis</h4>
+          
+          <p><strong>Change Type:</strong> VISUAL</p>
+          <p><strong>Severity:</strong> HIGH</p>
+          <p><strong>Confidence:</strong> 90%</p>
+          <p><strong>False Positive:</strong> No</p>
+          <p><strong>Summary:</strong> Visual differences detected (100.00%)</p>
+          <p><strong>Description:</strong> After analyzing the provided images, here are the findings:
+
+1. **TEXT TRUNCATION**:
+   - **Affected Element**: The text under "Information" is truncated with ellipsis.
+   - **Impact**: Users may not be able to read the full description, which could lead to confusion or lack of information.
+   - **Severity**: Medium
+
+2. **MISSING ELEMENTS**:
+   - No buttons, icons, or UI components are completely missing in the current version.
+
+3. **COLOR CONTRAST ISSUES**:
+   - No significant color contrast issues were detected. Text remains readable.
+
+4. **LAYOUT SHIFTS**:
+   - No significant layout shifts were observed that would confuse users.
+
+### Additional Analysis:
+
+1. **Significance of Changes**:
+   - The text truncation under "Information" is significant as it affects content readability.
+
+2. **Intentional Design Updates or Accidental Regressions**:
+   - The text truncation appears to be an accidental regression rather than an intentional design update.
+
+3. **False Positives**:
+   - The detected changes are not false positives; the text truncation is a real issue.
+
+### Conclusion:
+
+The primary actionable UI bug detected is the text truncation under "Information." This issue should be addressed to ensure users can access the full content. Other differences are likely acceptable variations or testing artifacts.</p>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="code-localization-main">
+
+        <div class="code-localization">
+          <h4>Issue 1</h4>
+          
+          <h5>Affected UI Elements</h5>
+          <ul>
+
+            <li>
+              <strong>#demo-form</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#full_name</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#contact_email</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.container</strong> 
+              (Overlap: 97%)
+            </li>
+
+            <li>
+              <strong>.header</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.subtitle</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.card</strong> 
+              (Overlap: 81%)
+            </li>
+
+            <li>
+              <strong>.form-group</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.btn.btn-primary</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.information-paragraph</strong> 
+              (Overlap: 100%)
+            </li>
+
+          </ul>
+          
+          <h5>Code References</h5>
+          <ul>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 19)
+              <div class="code-reference">Element with ID &quot;demo-form&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with ID &quot;full_name&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with ID &quot;contact_email&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 203)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 12)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 324)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 419)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 300)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 369)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 13)
+              <div class="code-reference">Element with class &quot;subtitle&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 20)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 25)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 30)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 221)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 222)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 360)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 363)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 327)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 39)
+              <div class="code-reference">Element with class &quot;information-paragraph&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 207)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 211)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 215)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>index.html</strong> (Line 10)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 120)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 323)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 418)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 432)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 121)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 299)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 306)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 368)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 382)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 17)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 37)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 142)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 143)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 144)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 145)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="recommendations-main">
+
+        <div class="recommendations">
+          <h4>Recommendation 1</h4>
+          <ul>
+
+            <li class="recommendation">
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 70%
+              </span>
+              <p>Review code in index.html at line 19. This appears to be the source of the visual difference.</p>
+
+              <div class="code-reference">
+                <strong>File:</strong> index.html
+                <strong>Line:</strong> 19
+                <strong>Current Code:</strong>                 &lt;form id=&quot;demo-form&quot;&gt;
+                <strong>Suggested Fix:</strong> Verify changes or revert to previous version
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison-container filter-item filter-differences filter-localized filter-recommendations">
+    <div class="comparison-header">
+      <h3>form</h3>
+    </div>
+    
+    <div class="images-container">
+      <div class="image-box">
+        <div class="image-label">Baseline</div>
+        <img src="baseline-form" alt="Baseline Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Current</div>
+        <img src="current-form" alt="Current Image">
+      </div>
+      
+      <div class="image-box">
+        <div class="image-label">Difference</div>
+        <img src="diff-form" alt="Difference Image">
+      </div>
+    </div>
+    
+    <div class="info-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="overview-form">Overview</div>
+        <div class="tab" data-tab="ai-analysis-form">AI Analysis</div>
+        <div class="tab" data-tab="code-localization-form">Code Localization</div>
+        <div class="tab" data-tab="recommendations-form">Recommendations</div>
+      </div>
+      
+      <div class="tab-content active" id="overview-form">
+        <p>Test result: <strong>Differences Detected</strong></p>
+        <p class="diff-info diff-high">Difference: 100.00% (1024000 pixels)</p>
+        <p>Threshold: undefined</p>
+        <p>Resolution: 1280x800</p>
+        <p>Page Name: form</p>
+        
+      </div>
+      
+      <div class="tab-content" id="ai-analysis-form">
+
+        <div class="ai-analysis">
+          <h4>AI Analysis</h4>
+          
+          <p><strong>Change Type:</strong> VISUAL</p>
+          <p><strong>Severity:</strong> HIGH</p>
+          <p><strong>Confidence:</strong> 90%</p>
+          <p><strong>False Positive:</strong> No</p>
+          <p><strong>Summary:</strong> Visual differences detected (100.00%)</p>
+          <p><strong>Description:</strong> No actionable UI bugs were detected. The differences are likely acceptable variations or testing artifacts. Here's the analysis:
+
+1. **TEXT TRUNCATION**: No text truncation is evident. All text appears fully visible without ellipsis.
+
+2. **MISSING ELEMENTS**: No buttons, icons, or UI components are missing. The form fields and button are present.
+
+3. **COLOR CONTRAST ISSUES**: There are no significant color changes affecting readability. The text and button maintain adequate contrast.
+
+4. **LAYOUT SHIFTS**: There are no significant layout shifts. Elements are in their expected positions.
+
+### Additional Analysis:
+
+1. **Significance of Changes**: The changes are not significant to the user experience.
+
+2. **Intentional vs. Accidental**: The changes appear to be intentional design updates or testing artifacts rather than accidental regressions.
+
+3. **False Positives**: The detected changes are likely false positives due to the testing setup, as no real issues were found.</p>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="code-localization-form">
+
+        <div class="code-localization">
+          <h4>Issue 1</h4>
+          
+          <h5>Affected UI Elements</h5>
+          <ul>
+
+            <li>
+              <strong>#demo-form</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#full_name</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>#contact_email</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.container</strong> 
+              (Overlap: 97%)
+            </li>
+
+            <li>
+              <strong>.header</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.subtitle</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.card</strong> 
+              (Overlap: 81%)
+            </li>
+
+            <li>
+              <strong>.form-group</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.btn.btn-primary</strong> 
+              (Overlap: 100%)
+            </li>
+
+            <li>
+              <strong>.information-paragraph</strong> 
+              (Overlap: 100%)
+            </li>
+
+          </ul>
+          
+          <h5>Code References</h5>
+          <ul>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 19)
+              <div class="code-reference">Element with ID &quot;demo-form&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with ID &quot;full_name&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with ID &quot;contact_email&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 22)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 27)
+              <div class="code-reference">Element with class &quot;form-control&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 203)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 12)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 324)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 419)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 300)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 369)
+              <div class="code-reference">Element with class &quot;header&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 13)
+              <div class="code-reference">Element with class &quot;subtitle&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 20)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 25)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 30)
+              <div class="code-reference">Element with class &quot;form-group&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 221)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>static-confirm.html</strong> (Line 222)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 360)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm.html</strong> (Line 363)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 327)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;btn&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 31)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 146)
+              <div class="code-reference">Element with class &quot;btn-primary&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 55%
+              </span>
+              <strong>index.html</strong> (Line 39)
+              <div class="code-reference">Element with class &quot;information-paragraph&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 207)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 211)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>static-confirm.html</strong> (Line 215)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>index.html</strong> (Line 10)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 120)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 323)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 330)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 418)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm.html</strong> (Line 432)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 121)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 299)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 306)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 368)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 54%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 382)
+              <div class="code-reference">Element with class &quot;container&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 17)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>index.html</strong> (Line 37)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 142)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 143)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 144)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+            <li>
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 50%
+              </span>
+              <strong>confirm-with-report.html</strong> (Line 145)
+              <div class="code-reference">Element with class &quot;card&quot;</div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+      
+      <div class="tab-content" id="recommendations-form">
+
+        <div class="recommendations">
+          <h4>Recommendation 1</h4>
+          <ul>
+
+            <li class="recommendation">
+              <span class="recommendation-confidence confidence-medium">
+                Confidence: 70%
+              </span>
+              <p>Review code in index.html at line 19. This appears to be the source of the visual difference.</p>
+
+              <div class="code-reference">
+                <strong>File:</strong> index.html
+                <strong>Line:</strong> 19
+                <strong>Current Code:</strong>                 &lt;form id=&quot;demo-form&quot;&gt;
+                <strong>Suggested Fix:</strong> Verify changes or revert to previous version
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Generated by AI Visual Testing Phase 3 - Code Analysis & Issue Localization</p>
+  </footer>
+
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Get the tab content ID
+        const tabId = tab.getAttribute('data-tab');
+        
+        // Get parent tabs container
+        const tabsContainer = tab.parentElement;
+        
+        // Remove active class from all tabs in this container
+        tabsContainer.querySelectorAll('.tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Get parent container (info-container)
+        const contentContainer = tabsContainer.parentElement;
+        
+        // Hide all tab content in this container
+        contentContainer.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Show the selected tab content
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // Filter functionality
+    document.querySelectorAll('.filter-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all filter buttons
+        document.querySelectorAll('.filter-button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Get the filter value
+        const filter = button.getAttribute('data-filter');
+        
+        // Show/hide containers based on filter
+        document.querySelectorAll('.comparison-container').forEach(container => {
+          if (filter === 'all') {
+            container.style.display = 'block';
+          } else {
+            if (container.classList.contains('filter-' + filter)) {
+              container.style.display = 'block';
+            } else {
+              container.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
