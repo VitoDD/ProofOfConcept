@@ -24,6 +24,7 @@
     "diagnose-openai-images": "node diagnose-openai-images.js",
     "test-ai": "node test-ai-analysis.js",
     "fix-diff-images": "node fix-diff-images.js",
+    "fix-baseline-images": "node fix-baseline-images.js",
     "create-placeholder-diffs": "node create-placeholder-diffs.js",
     "phase1": "node run-phase1.js",
     "phase1-enhanced": "node run-enhanced-phase1.js",
@@ -84,7 +85,8 @@
     "fix-report-images": "node fix-report-images.js",
     "fix-github-pages-images": "node fix-github-pages-images.js",
     "test-image-fixes": "node test-image-fixes.js",
-    "validate-setup": "node test-image-fixes.js --validate"
+    "validate-setup": "node test-image-fixes.js --validate",
+    "validate-pipeline": "node validate-pipeline-setup.js"
   },
   "keywords": [
     "visual-testing",
