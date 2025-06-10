@@ -26,8 +26,9 @@ jobs:
     
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
-      PUPPETEER_CACHE_DIR: ~/.cache/puppeteer
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+      PUPPETEER_SKIP_DOWNLOAD: true
+      PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
     
     steps:
       - name: Check for OpenAI API Key
