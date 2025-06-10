@@ -1,0 +1,49 @@
+{}  "header-1749563457341": {
+    "id": "header-1749563457341",
+    "name": "header",
+    "timestamp": 1749563457341,
+    "status": "approved",
+    "issue": {
+      "name": "header",
+      "baselineImagePath": "baseline-header",
+      "currentImagePath": "current-header",
+      "diffImagePath": "diff-header",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749563558743,
+    "isIntended": true
+  },
+  "main-1749563457342": {
+    "id": "main-1749563457342",
+    "name": "main",
+    "timestamp": 1749563457342,
+    "status": "approved",
+    "issue": {
+      "name": "main",
+      "baselineImagePath": "baseline-main",
+      "currentImagePath": "current-main",
+      "diffImagePath": "diff-main",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749563558743,
+    "isIntended": true
+  },
+  "form-1749563457342": {
+    "id": "form-1749563457342",
+    "name": "form",
+    "timestamp": 1749563457342,
+    "status": "approved",
+    "issue": {
+      "name": "form",
+      "baselineImagePath": "baseline-form",
+      "currentImagePath": "current-form",
+      "diffImagePath": "diff-form",
+      "diffPercentage": 100,
+      "diffPixelCount": 1024000
+    },
+    "confirmedAt": 1749563558744,
+    "isIntended": true
+  }
+}
