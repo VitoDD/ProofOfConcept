@@ -1,0 +1,35 @@
+name: 'Setup Environment'
+description: 'Sets up the environment for visual testing'
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+    
+    - name: Setup Ollama
+      shell: bash
+      run: |
+        curl -fsSL https://ollama.com/install.sh | sh
+        ollama serve &
+        sleep 10  # Give Ollama time to start
+        ollama pull llama3.2
+        ollama pull llava
+    
+    - name: Create required directories
+      shell: bash
+      run: |
+        mkdir -p screenshots/baseline
+        mkdir -p screenshots/current
+        mkdir -p screenshots/diff
+        mkdir -p screenshots/verification
+        mkdir -p reports
+        mkdir -p logs
+        mkdir -p backups
+        mkdir -p src/phase4/data

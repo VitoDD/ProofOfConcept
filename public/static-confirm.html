@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Confirmation - Static</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: #333;
+    }
+    
+    .comparison {
+      margin-bottom: 30px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .comparison-header {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .comparison-header h2 {
+      margin: 0;
+    }
+    
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 15px;
+      gap: 15px;
+    }
+    
+    .image-container {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+    
+    .image-container img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .image-label {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    .actions {
+      padding: 15px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    .approve-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .reject-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .result-message {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h1>Visual Testing Confirmation</h1>
+  
+  <div id="result-message" style="display: none;"></div>
+  
+  <div id="comparisons-container">
+    <!-- Comparisons will be loaded here -->
+    <p>Loading comparisons...</p>
+  </div>
+  
+  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div style="background: white; padding: 20px; border-radius: 5px;">Processing...</div>
+  </div>
+  
+  <script>
+    // Load the latest report to get comparison data
+    async function loadLatestReport() {
+      try {
+        // Get list of report files
+        const response = await fetch('/reports');
+        const html = await response.text();
+        
+        // Extract phase4 report filenames
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Find the latest phase4 report
+        const reportLinks = [...doc.querySelectorAll('a')]
+          .filter(a => a.href.includes('phase4-report-'))
+          .map(a => a.href);
+        
+        if (reportLinks.length === 0) {
+          document.getElementById('comparisons-container').innerHTML = 
+            '<p>No reports found. Please run visual tests first.</p>';
+          return null;
+        }
+        
+        // Sort by date (newest first)
+        reportLinks.sort().reverse();
+        
+        // Load the latest report
+        const reportUrl = reportLinks[0];
+        const reportResponse = await fetch(reportUrl);
+        const reportHtml = await reportResponse.text();
+        
+        // Extract image sources
+        const reportDoc = parser.parseFromString(reportHtml, 'text/html');
+        const imageContainers = reportDoc.querySelectorAll('.image-container');
+        
+        // Organize by test
+        const tests = {};
+        
+        imageContainers.forEach(container => {
+          const testName = container.closest('.card').querySelector('h3').textContent.trim();
+          const imageType = container.querySelector('.image-label').textContent.trim().toLowerCase();
+          const imageSrc = container.querySelector('img').src;
+          
+          if (!tests[testName]) {
+            tests[testName] = {};
+          }
+          
+          tests[testName][imageType] = imageSrc;
+        });
+        
+        return tests;
+      } catch (error) {
+        console.error('Error loading report:', error);
+        document.getElementById('comparisons-container').innerHTML = 
+          `<p>Error loading report: ${error.message}</p>`;
+        return null;
+      }
+    }
+    
+    // Render the comparisons
+    function renderComparisons(tests) {
+      const container = document.getElementById('comparisons-container');
+      if (!tests || Object.keys(tests).length === 0) {
+        container.innerHTML = '<p>No tests found with differences.</p>';
+        return;
+      }
+      
+      let html = '';
+      
+      Object.entries(tests).forEach(([testName, images]) => {
+        html += `
+          <div class="comparison" data-test="${testName}">
+            <div class="comparison-header">
+              <h2>${testName}</h2>
+            </div>
+            <div class="images">
+              <div class="image-container">
+                <div class="image-label">Baseline</div>
+                <img src="${getImagePath(images.baseline)}" alt="Baseline Image">
+              </div>
+              <div class="image-container">
+                <div class="image-label">Current</div>
+                <img src="${getImagePath(images.current)}" alt="Current Image">
+              </div>
+              <div class="image-container">
+                <div class="image-label">Difference</div>
+                <img src="${getImagePath(images.difference)}" alt="Difference Image">
+              </div>
+            </div>
+            <div class="actions">
+              <button class="reject-btn" onclick="rejectChange('${testName}')">Reject</button>
+              <button class="approve-btn" onclick="approveChange('${testName}')">Approve</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    // Helper function to convert file:/// URLs to relative paths
+    function getImagePath(url) {
+      // If it's a file URL, extract just the path
+      if (typeof url === 'string' && url.includes('file:///')) {
+        // Extract just the filename
+        const parts = url.split('/');
+        const filename = parts[parts.length - 1];
+        
+        // Determine the image type from the path
+        if (url.includes('/baseline/')) {
+          return `/screenshots/baseline/${filename}`;
+        } else if (url.includes('/current/')) {
+          return `/screenshots/current/${filename}`;
+        } else if (url.includes('/diff/')) {
+          return `/screenshots/diff/${filename}`;
+        }
+      }
+      
+      // For relative URLs, keep as is
+      return url;
+    }
+    
+    // Approve a change
+    async function approveChange(testName) {
+      showLoading();
+      
+      try {
+        // Create a confirmation ID
+        const confirmationId = `${testName}-${Date.now()}`;
+        
+        // Execute the approval command
+        const response = await fetch('/api/approve-change', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: confirmationId,
+            testName
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showMessage(`Successfully approved change for ${testName}`, 'success');
+          
+          // Hide the approved comparison
+          const comparison = document.querySelector(`.comparison[data-test="${testName}"]`);
+          if (comparison) {
+            comparison.style.display = 'none';
+          }
+        } else {
+          showMessage(`Failed to approve change: ${result.error}`, 'error');
+        }
+      } catch (error) {
+        console.error('Error approving change:', error);
+        showMessage(`Error approving change: ${error.message}`, 'error');
+      } finally {
+        hideLoading();
+      }
+    }
+    
+    // Reject a change
+    async function rejectChange(testName) {
+      showLoading();
+      
+      try {
+        // Create a confirmation ID
+        const confirmationId = `${testName}-${Date.now()}`;
+        
+        // Execute the rejection command
+        const response = await fetch('/api/reject-change', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: confirmationId,
+            testName
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showMessage(`Successfully rejected change for ${testName}`, 'success');
+          
+          // Hide the rejected comparison
+          const comparison = document.querySelector(`.comparison[data-test="${testName}"]`);
+          if (comparison) {
+            comparison.style.display = 'none';
+          }
+        } else {
+          showMessage(`Failed to reject change: ${result.error}`, 'error');
+        }
+      } catch (error) {
+        console.error('Error rejecting change:', error);
+        showMessage(`Error rejecting change: ${error.message}`, 'error');
+      } finally {
+        hideLoading();
+      }
+    }
+    
+    // Show a message
+    function showMessage(message, type) {
+      const messageEl = document.getElementById('result-message');
+      messageEl.innerHTML = message;
+      messageEl.className = `result-message ${type}`;
+      messageEl.style.display = 'block';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Show loading overlay
+    function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+    }
+    
+    // Hide loading overlay
+    function hideLoading() {
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+    
+    // Initialize
+    window.addEventListener('DOMContentLoaded', async () => {
+      showLoading();
+      const tests = await loadLatestReport();
+      renderComparisons(tests);
+      hideLoading();
+    });
+  </script>
+</body>
+</html>

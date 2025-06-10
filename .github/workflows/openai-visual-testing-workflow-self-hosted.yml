@@ -1,0 +1,260 @@
+name: OpenAI Visual Testing Workflow (Self-Hosted)
+
+on:
+  # Allow manual triggering only for OpenAI workflow to control costs
+  workflow_dispatch:
+    inputs:
+      run_phase:
+        description: 'Which phase to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - phase1
+          - phase2
+          - phase3
+          - phase4
+          - run-all
+
+jobs:
+  openai-visual-testing:
+    runs-on: self-hosted
+    permissions:
+      contents: write  # Required for gh-pages deployment
+      pull-requests: write  # Required for creating PRs
+    
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    
+    steps:
+      - name: Check for OpenAI API Key
+        shell: powershell
+        if: env.OPENAI_API_KEY == ''
+        run: |
+          Write-Error "OpenAI API key not set. Please add OPENAI_API_KEY to repository secrets."
+          exit 1
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        shell: powershell
+        run: |
+          # Check if package.json and package-lock.json are in sync
+          try {
+            npm ci
+            Write-Output "Dependencies installed successfully with npm ci"
+          } catch {
+            Write-Output "package-lock.json out of sync, regenerating..."
+            if (Test-Path "package-lock.json") { 
+              Remove-Item "package-lock.json" -Force
+            }
+            npm install
+            Write-Output "Dependencies installed successfully with npm install"
+          }
+      
+      - name: Check for baseline issues and fix if needed
+        shell: powershell
+        run: |
+          # Check if baselines exist and are compatible
+          if (Test-Path "screenshots\baseline") {
+            Write-Output "Baseline screenshots found, checking compatibility..."
+            # Run a quick dimension check
+            npm run create-placeholder-diffs
+          } else {
+            Write-Output "No baseline screenshots found, will create new ones"
+          }
+      
+      - name: Setup environment
+        run: npm run setup
+      
+      - name: Revert any existing bugs
+        shell: cmd
+        run: npm run revert-bug
+      
+      - name: Check OpenAI connection
+        shell: cmd
+        run: npm run check-openai
+      
+      - name: Run Phase 1 - OpenAI
+        if: github.event.inputs.run_phase == 'phase1' || github.event.inputs.run_phase == 'all'
+        shell: cmd
+        run: npm run phase1-openai
+      
+      - name: Run Phase 2 - OpenAI
+        if: github.event.inputs.run_phase == 'phase2' || github.event.inputs.run_phase == 'all'
+        shell: cmd
+        run: npm run phase2-openai
+      
+      - name: Run Phase 3 - OpenAI
+        if: github.event.inputs.run_phase == 'phase3' || github.event.inputs.run_phase == 'all'
+        shell: cmd
+        run: npm run phase3-openai
+      
+      - name: Run Phase 4 - OpenAI
+        if: github.event.inputs.run_phase == 'phase4' || github.event.inputs.run_phase == 'all'
+        shell: cmd
+        run: npm run phase4-openai
+        
+      - name: Run All Phases at once - OpenAI
+        if: github.event.inputs.run_phase == 'run-all'
+        shell: cmd
+        run: npm run run-all-openai
+        
+      - name: Process confirmations
+        shell: cmd
+        run: npm run process-confirmations
+      
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openai-visual-testing-reports
+          path: reports/
+          
+      - name: Set up report publication
+        shell: powershell
+        run: |
+          # Create a directory for the GitHub Pages content
+          New-Item -Path "gh-pages" -ItemType Directory -Force
+          
+          # Find the latest report - prioritize OpenAI reports
+          $latestReport = Get-ChildItem -Path "reports" -Filter "report-openai-*.html" -ErrorAction SilentlyContinue | 
+                          Sort-Object LastWriteTime -Descending | 
+                          Select-Object -First 1
+          
+          if (-not $latestReport) {
+              # If no OpenAI report found, look for regular reports
+              $latestReport = Get-ChildItem -Path "reports" -Filter "phase4-report-*.html" -ErrorAction SilentlyContinue | 
+                              Sort-Object LastWriteTime -Descending | 
+                              Select-Object -First 1
+          }
+          
+          if ($latestReport) {
+              Copy-Item $latestReport.FullName -Destination "gh-pages\index-openai.html"
+              
+              # Create an index.html that links to the OpenAI report
+              $indexContent = @"
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>AI Visual Testing Reports</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+              }
+              .report-link {
+                padding: 15px;
+                margin: 10px 0;
+                background-color: #f5f5f5;
+                border-radius: 5px;
+                text-decoration: none;
+                color: #333;
+                display: block;
+              }
+              .report-link:hover {
+                background-color: #e0e0e0;
+              }
+              .openai {
+                border-left: 5px solid #6050dc;
+              }
+              .ollama {
+                border-left: 5px solid #2ecc71;
+              }
+              h1, h2 {
+                color: #333;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>AI Visual Testing Reports</h1>
+            <p>Select a report to view:</p>
+            
+            <h2>Latest Reports</h2>
+            <a href="index-openai.html" class="report-link openai">
+              <strong>OpenAI Report</strong>
+              <div>Using GPT-4o models</div>
+            </a>
+            
+            <h2>Tools</h2>
+            <a href="confirm.html" class="report-link">Confirmation Dashboard</a>
+            
+            <hr>
+            <p><small>Generated by AI Visual Testing Workflow</small></p>
+          </body>
+          </html>
+          "@
+              Set-Content -Path "gh-pages\index.html" -Value $indexContent
+              
+              Write-Output "Copied latest report: $($latestReport.Name)"
+          } else {
+              Write-Output "No report found, creating placeholder"
+              Set-Content -Path "gh-pages\index-openai.html" -Value "<html><body><h1>OpenAI Visual Testing Report</h1><p>No reports available yet.</p></body></html>"
+          }
+          
+          # Copy the confirmation UI to gh-pages
+          Copy-Item "public\confirm.html" -Destination "gh-pages"
+          
+          # Copy confirmation data if it exists
+          if (Test-Path "reports\intent-confirmations") {
+              New-Item -Path "gh-pages" -ItemType Directory -Force
+              Get-ChildItem -Path "reports\intent-confirmations" -Filter "*.json" -ErrorAction SilentlyContinue | ForEach-Object {
+                  Copy-Item $_.FullName -Destination "gh-pages"
+              }
+              Write-Output "Copied confirmation data"
+          } else {
+              Write-Output "No confirmation data found, creating empty files"
+              Set-Content -Path "gh-pages\confirmations.json" -Value "{}"
+              Set-Content -Path "gh-pages\pending.json" -Value "{}"
+          }
+          
+          # Copy screenshots if they exist
+          New-Item -Path "gh-pages\screenshots" -ItemType Directory -Force
+          if (Test-Path "screenshots") {
+              Copy-Item "screenshots\*" -Destination "gh-pages\screenshots" -Recurse -Force -ErrorAction SilentlyContinue
+              Write-Output "Copied screenshots"
+          }
+          
+          # Create a simple README for the GitHub Pages site
+          Set-Content -Path "gh-pages\README.md" -Value "# AI Visual Testing Reports"
+          Add-Content -Path "gh-pages\README.md" -Value "This site contains reports and confirmation pages for the AI Visual Testing project."
+          Add-Content -Path "gh-pages\README.md" -Value "The OpenAI version uses GPT-4o models for enhanced visual analysis."
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          force_orphan: true
+      
+      - name: Create Pull Request for confirmed changes
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          commit-message: "OpenAI Visual Testing: Update baselines with confirmed changes"
+          title: "OpenAI Visual Testing: Update baselines with confirmed changes"
+          body: |
+            This PR updates baseline screenshots based on confirmed visual changes.
+            
+            Changes were automatically confirmed and processed by the OpenAI visual testing workflow.
+          branch: openai-visual-testing-updates-${{ github.run_id }}
+          base: ${{ github.head_ref || github.ref_name }}
+          labels: |
+            automated-fix
+            visual-testing
+            openai

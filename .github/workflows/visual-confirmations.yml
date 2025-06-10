@@ -1,0 +1,107 @@
+name: Visual Testing with Confirmations
+
+on:
+  # Manual triggering only - no automatic runs
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'run-tests'
+        type: choice
+        options:
+          - run-tests
+          - approve
+          - reject
+      id:
+        description: 'Confirmation ID (for approve/reject)'
+        required: false
+        type: string
+
+jobs:
+  visual-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Check action type
+        id: check-action
+        run: |
+          ACTION="${{ github.event.inputs.action || 'run-tests' }}"
+          echo "ACTION=$ACTION" >> $GITHUB_ENV
+          echo "Selected action: $ACTION"
+      
+      # PROCESS CONFIRMATIONS
+      - name: Process approval/rejection
+        if: env.ACTION == 'approve' || env.ACTION == 'reject'
+        run: |
+          CONFIRMATION_ID="${{ github.event.inputs.id }}"
+          if [ -z "$CONFIRMATION_ID" ]; then
+            echo "Error: Confirmation ID is required for approve/reject actions"
+            exit 1
+          fi
+          
+          if [ "$ACTION" == "approve" ]; then
+            echo "Approving confirmation: $CONFIRMATION_ID"
+            npm run confirm -- --approve --id=$CONFIRMATION_ID
+          else
+            echo "Rejecting confirmation: $CONFIRMATION_ID"
+            npm run confirm -- --reject --id=$CONFIRMATION_ID
+          fi
+          
+          # Generate updated report
+          npm run confirm -- --generate-report
+      
+      # RUN VISUAL TESTS
+      - name: Setup Ollama (if running tests)
+        if: env.ACTION == 'run-tests'
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve &
+          sleep 10  # Give Ollama time to start
+          ollama pull llama3.2
+          ollama pull llava
+      
+      - name: Setup environment (if running tests)
+        if: env.ACTION == 'run-tests'
+        run: npm run setup
+      
+      - name: Capture baseline screenshots (if running tests)
+        if: env.ACTION == 'run-tests'
+        run: node src/phase4/self-healing-workflow.js --baseline
+      
+      - name: Run visual tests (if running tests)
+        if: env.ACTION == 'run-tests'
+        run: node src/phase4/self-healing-workflow.js
+      
+      - name: Register confirmations (if running tests)
+        if: env.ACTION == 'run-tests'
+        run: npm run confirm -- --register
+      
+      # COMMON STEPS
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: visual-testing-artifacts
+          path: |
+            screenshots/
+            reports/
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports/confirmations
+          force_orphan: true

@@ -1,0 +1,538 @@
+name: OpenAI Visual Testing Workflow
+
+on:
+  # Allow manual triggering only for OpenAI workflow to control costs
+  workflow_dispatch:
+    inputs:
+      run_phase:
+        description: 'Which phase to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - run-all-single
+          - phase1
+          - phase2
+          - phase3
+          - phase4
+
+jobs:
+  openai-visual-testing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for gh-pages deployment
+      pull-requests: write  # Required for creating PRs
+    
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
+      PUPPETEER_CACHE_DIR: ~/.cache/puppeteer
+    
+    steps:
+      - name: Check for OpenAI API Key
+        if: env.OPENAI_API_KEY == ''
+        run: |
+          echo "::error::OpenAI API key not set. Please add OPENAI_API_KEY to repository secrets."
+          exit 1
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install system dependencies
+        run: |
+          # Install minimal required dependencies for Puppeteer on Ubuntu 24.04
+          sudo apt-get update
+          
+          # Try to install packages individually to avoid failing on missing ones
+          packages=(
+            libnss3
+            libatk-bridge2.0-0
+            libdrm2
+            libxkbcommon0
+            libxcomposite1
+            libxdamage1
+            libxrandr2
+            libgbm1
+            libxss1
+            libasound2t64
+          )
+          
+          for package in "${packages[@]}"; do
+            if sudo apt-get install -y "$package"; then
+              echo "✅ Installed $package"
+            else
+              echo "⚠️ Failed to install $package, trying alternative..."
+              # Try alternative package names for some packages
+              case "$package" in
+                "libasound2t64")
+                  sudo apt-get install -y libasound2 || echo "❌ Could not install any sound library"
+                  ;;
+                *)
+                  echo "❌ Could not install $package"
+                  ;;
+              esac
+            fi
+          done
+          
+          echo "System dependencies installation completed"
+      
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: |
+          # Always use npm install to avoid lock file sync issues
+          echo "Installing dependencies with npm install to ensure compatibility..."
+          npm install
+          
+          # Verify Puppeteer installation
+          echo "Verifying Puppeteer installation..."
+          node -e "console.log('Puppeteer version:', require('puppeteer/package.json').version)"
+          
+          # Install Puppeteer browsers explicitly with retry logic
+          echo "Installing Puppeteer browsers..."
+          for i in {1..3}; do
+            if npx puppeteer browsers install chrome; then
+              echo "Chrome browser installed successfully"
+              break
+            else
+              echo "Attempt $i failed, retrying..."
+              sleep 5
+            fi
+          done
+          
+          # Verify Chrome installation
+          echo "Verifying Chrome installation..."
+          node -e "const puppeteer = require('puppeteer'); console.log('Chrome executable:', puppeteer.executablePath());" || echo "Warning: Could not verify Chrome path"
+          
+          echo "Dependencies installed successfully"
+      
+      - name: Test Puppeteer installation
+        run: |
+          echo "Testing Puppeteer functionality..."
+          node test-puppeteer.js || {
+            echo "❌ Puppeteer test failed, attempting to reinstall..."
+            npm uninstall puppeteer
+            npm install puppeteer
+            npx puppeteer browsers install chrome
+            echo "Retesting after reinstall..."
+            node test-puppeteer.js
+          }
+      
+      - name: Setup environment
+        run: npm run setup
+      
+      - name: Debug Puppeteer installation
+        run: |
+          echo "=== Puppeteer Debug Information ==="
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Puppeteer cache directory:"
+          ls -la ~/.cache/puppeteer/ 2>/dev/null || echo "No Puppeteer cache found"
+          echo "Chrome installations:"
+          which google-chrome || echo "google-chrome not found in PATH"
+          which chromium-browser || echo "chromium-browser not found in PATH"
+          ls -la /usr/bin/google-* 2>/dev/null || echo "No google-* binaries found"
+          echo "Puppeteer module check:"
+          node -e "
+            try {
+              const puppeteer = require('puppeteer');
+              console.log('✅ Puppeteer loaded successfully');
+              console.log('Version:', require('puppeteer/package.json').version);
+            } catch (e) {
+              console.log('❌ Puppeteer loading failed:', e.message);
+            }
+          "
+      
+      - name: Check for baseline issues and fix if needed
+        run: |
+          # Check if baselines exist and are compatible
+          if [ -d "screenshots/baseline" ]; then
+            echo "Baseline screenshots found, checking compatibility..."
+            # Run a quick dimension check
+            npm run create-placeholder-diffs || echo "Some baseline issues detected"
+          else
+            echo "No baseline screenshots found, will create new ones"
+          fi
+      
+      - name: Revert any existing bugs
+        run: npm run revert-bug
+      
+      - name: Check OpenAI connection
+        run: npm run check-openai
+      
+      - name: Test server accessibility
+        run: |
+          echo "Testing server accessibility in CI environment..."
+          # Start server in background
+          npm run start-server &
+          SERVER_PID=$!
+          
+          # Wait for server to start
+          sleep 5
+          
+          # Test server endpoints
+          echo "Testing server endpoints..."
+          curl -f http://localhost:3000/api/status || echo "❌ API status failed"
+          curl -f http://localhost:3000/health || echo "❌ Health check failed" 
+          curl -f http://localhost:3000/ || echo "❌ Root endpoint failed"
+          
+          # Kill the test server
+          kill $SERVER_PID || echo "Server already stopped"
+          
+          echo "✅ Server accessibility test completed"
+      
+      - name: Run Phase 1 - OpenAI
+        if: github.event.inputs.run_phase == 'phase1' || github.event.inputs.run_phase == 'all'
+        run: |
+          echo "Starting Phase 1 with OpenAI..."
+          npm run phase1-openai || {
+            echo "Phase 1 failed, checking logs..."
+            ls -la logs/ 2>/dev/null || echo "No logs directory found"
+            exit 1
+          }
+          echo "Phase 1 completed at: $(date)"
+      
+      - name: Run Phase 2 - OpenAI
+        if: github.event.inputs.run_phase == 'phase2' || github.event.inputs.run_phase == 'all'
+        timeout-minutes: 20
+        run: |
+          echo "Starting Phase 2 with OpenAI..."
+          echo "Current time: $(date)"
+          
+          npm run phase2-openai || {
+            echo "Phase 2 failed, checking logs..."
+            ls -la logs/ 2>/dev/null || echo "No logs directory found"
+            echo "Phase 2 failed at: $(date)"
+            exit 1
+          }
+          echo "Phase 2 completed at: $(date)"
+      
+      - name: Run Phase 3 - OpenAI
+        if: github.event.inputs.run_phase == 'phase3' || github.event.inputs.run_phase == 'all'
+        timeout-minutes: 25
+        run: |
+          echo "Starting Phase 3 with OpenAI..."
+          echo "Current time: $(date)"
+          
+          npm run phase3-openai || {
+            echo "Phase 3 failed, checking logs..."
+            ls -la logs/ 2>/dev/null || echo "No logs directory found"
+            echo "Phase 3 failed at: $(date)"
+            exit 1
+          }
+          echo "Phase 3 completed at: $(date)"
+      
+      - name: Run Phase 4 - OpenAI
+        if: github.event.inputs.run_phase == 'phase4' || github.event.inputs.run_phase == 'all'
+        timeout-minutes: 25
+        run: |
+          echo "Starting Phase 4 with OpenAI..."
+          echo "Current time: $(date)"
+          
+          npm run phase4-openai || {
+            echo "Phase 4 failed, checking logs..."
+            ls -la logs/ 2>/dev/null || echo "No logs directory found"
+            echo "Phase 4 failed at: $(date)"
+            exit 1
+          }
+          echo "Phase 4 completed at: $(date)"
+        
+      - name: Run All Phases at once - OpenAI
+        if: github.event.inputs.run_phase == 'run-all-single'
+        timeout-minutes: 60
+        run: |
+          echo "Running all phases in a single step..."
+          echo "Current time: $(date)"
+          npm run run-all-openai || {
+            echo "All phases run failed, checking logs..."
+            ls -la logs/ 2>/dev/null || echo "No logs directory found"
+            exit 1
+          }
+          echo "All phases completed at: $(date)"
+        
+      - name: Process confirmations
+        run: npm run process-confirmations
+      
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openai-visual-testing-reports
+          path: reports/
+          
+      - name: Set up report publication
+        run: |
+          echo "Setting up GitHub Pages content..."
+          
+          # Create a directory for the GitHub Pages content
+          mkdir -p gh-pages
+          
+          # Always create a basic index.html even if no reports exist yet
+          cat > gh-pages/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>AI Visual Testing Reports</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f5f5f5;
+              }
+              .report-link {
+                padding: 15px;
+                margin: 10px 0;
+                background-color: white;
+                border-radius: 5px;
+                text-decoration: none;
+                color: #333;
+                display: block;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              }
+              .report-link:hover {
+                background-color: #e0e0e0;
+              }
+              .openai {
+                border-left: 5px solid #6050dc;
+              }
+              .status {
+                background: #e8f5e8;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 20px 0;
+              }
+              .placeholder {
+                background: #fff3cd;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 20px 0;
+                border-left: 5px solid #ffc107;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>🤖 AI Visual Testing Reports</h1>
+            
+            <div class="status">
+              ✅ <strong>GitHub Pages Active</strong><br>
+              🕒 Generated: $(date)<br>
+              🔧 OpenAI Integration: Ready
+            </div>
+          EOF
+          
+          # List available reports for debugging
+          echo "Available reports:"
+          find reports -name "*.html" 2>/dev/null || echo "No HTML reports found"
+          
+          # Find the latest report - prioritize OpenAI reports
+          latest_report=$(find reports -name "report-openai-*.html" -o -name "phase4-report-*.html" -o -name "*openai*.html" -type f | sort -r | head -n 1)
+          if [ -n "$latest_report" ]; then
+            echo "Copied latest report: $latest_report"
+            
+            # Fix image paths in the report and copy it to gh-pages
+            echo "Fixing image paths in reports..."
+            npm run fix-report-images
+            
+            # Copy the fixed report to index-openai.html
+            fixed_report=$(basename "$latest_report")
+            if [ -f "gh-pages/$fixed_report" ]; then
+              cp "gh-pages/$fixed_report" "gh-pages/index-openai.html"
+              echo "Fixed report copied to index-openai.html"
+            else
+              # Fallback to original copy
+              cp "$latest_report" gh-pages/index-openai.html
+              echo "Used original report as fallback"
+            fi
+            
+            # Run final image path fix for GitHub Pages
+            echo "Running final GitHub Pages image fix..."
+            npm run fix-github-pages-images
+            
+            # Add report links to index.html
+            cat >> gh-pages/index.html << 'EOF'
+            
+            <h2>📊 Latest Reports</h2>
+            <a href="index-openai.html" class="report-link openai">
+              <strong>📈 OpenAI Visual Testing Report</strong>
+              <div>Latest results using GPT-4o models</div>
+            </a>
+          EOF
+          else
+            echo "No reports found yet, creating placeholder"
+            
+            # Add placeholder message
+            cat >> gh-pages/index.html << 'EOF'
+            
+            <div class="placeholder">
+              <h2>📊 No Reports Yet</h2>
+              <p>Reports will appear here after running the visual testing workflow.</p>
+              <p><strong>To generate reports:</strong></p>
+              <ol>
+                <li>Go to the <a href="https://github.com/kajee27/ai-visual-testing-poc/actions">Actions tab</a></li>
+                <li>Run the "OpenAI Visual Testing Workflow"</li>
+                <li>Select any phase (recommended: "all")</li>
+                <li>Wait for completion and refresh this page</li>
+              </ol>
+            </div>
+          EOF
+          fi
+          
+          # Always add tools section and close HTML
+          cat >> gh-pages/index.html << 'EOF'
+            
+            <h2>🛠️ Tools</h2>
+            <a href="confirm.html" class="report-link">
+              <strong>🎯 Confirmation Dashboard</strong>
+              <div>Review and approve visual changes</div>
+            </a>
+            
+            <h2>📁 Resources</h2>
+            <a href="https://github.com/kajee27/ai-visual-testing-poc" class="report-link">
+              <strong>📂 Source Repository</strong>
+              <div>View the source code and documentation</div>
+            </a>
+            
+            <a href="https://github.com/kajee27/ai-visual-testing-poc/actions" class="report-link">
+              <strong>⚙️ GitHub Actions</strong>
+              <div>Run workflows and view execution logs</div>
+            </a>
+            
+            <hr>
+            <p><small>Generated by AI Visual Testing Workflow | $(date)</small></p>
+          </body>
+          </html>
+          EOF
+          
+          # Copy the confirmation UI to gh-pages (create basic one if not exists)
+          if [ -f "public/confirm.html" ]; then
+            cp public/confirm.html gh-pages/
+            echo "Copied confirmation UI"
+          else
+            echo "Creating basic confirmation page..."
+            cat > gh-pages/confirm.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Confirmation Dashboard</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+              .placeholder { background: #f8f9fa; padding: 20px; border-radius: 5px; text-align: center; }
+            </style>
+          </head>
+          <body>
+            <h1>🎯 Confirmation Dashboard</h1>
+            <div class="placeholder">
+              <p>Confirmation dashboard will be available after running visual tests.</p>
+              <p><a href="index.html">← Back to Reports</a></p>
+            </div>
+          </body>
+          </html>
+          EOF
+          fi
+          
+          # Copy confirmation data if it exists
+          if [ -d "reports/intent-confirmations" ]; then
+            cp -r reports/intent-confirmations/*.json gh-pages/ 2>/dev/null || :
+            echo "Copied confirmation data"
+          else
+            echo "No confirmation data found, creating empty files"
+            echo "{}" > gh-pages/confirmations.json
+            echo "{}" > gh-pages/pending.json
+          fi
+          
+          # Copy all image files from reports directory to gh-pages
+          echo "Copying image files from reports directory..."
+          if [ -d "reports" ]; then
+            # Copy all image files (.png, .jpg, .jpeg) from reports to gh-pages
+            find reports -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | while read image; do
+              if [ -f "$image" ]; then
+                filename=$(basename "$image")
+                cp "$image" "gh-pages/$filename" 2>/dev/null && echo "Copied: $filename" || echo "Failed to copy: $filename"
+              fi
+            done
+            echo "Finished copying image files from reports"
+          fi
+          
+          # Copy additional images from screenshots directories
+          echo "Copying additional screenshot images..."
+          if [ -d "screenshots" ]; then
+            # Copy images from all screenshot subdirectories to gh-pages root
+            find screenshots -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | while read image; do
+              if [ -f "$image" ]; then
+                filename=$(basename "$image")
+                # Only copy if not already copied from reports
+                if [ ! -f "gh-pages/$filename" ]; then
+                  cp "$image" "gh-pages/$filename" 2>/dev/null && echo "Copied screenshot: $filename" || echo "Failed to copy screenshot: $filename"
+                fi
+              fi
+            done
+          fi
+          
+          # Copy screenshots directory structure
+          mkdir -p gh-pages/screenshots
+          if [ -d "screenshots" ]; then
+            cp -r screenshots/* gh-pages/screenshots/ 2>/dev/null || :
+            echo "Copied screenshots directory structure"
+          fi
+          
+          # Create a simple README for the GitHub Pages site
+          echo "# AI Visual Testing Reports" > gh-pages/README.md
+          echo "This site contains reports and confirmation pages for the AI Visual Testing project." >> gh-pages/README.md
+          echo "The OpenAI version uses GPT-4o models for enhanced visual analysis." >> gh-pages/README.md
+          
+          # List what we're about to deploy
+          echo "Contents being deployed to GitHub Pages:"
+          ls -la gh-pages/
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          force_orphan: true
+          enable_jekyll: false
+          
+      - name: Display Pages URL
+        run: |
+          echo "🌐 GitHub Pages will be available at:"
+          echo "https://kajee27.github.io/ai-visual-testing-poc/"
+          echo ""
+          echo "📝 Note: It may take 5-10 minutes for the site to become available"
+          echo "📝 Make sure GitHub Pages is enabled in repository Settings → Pages"
+      
+      - name: Create Pull Request for confirmed changes
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          commit-message: "OpenAI Visual Testing: Update baselines with confirmed changes"
+          title: "OpenAI Visual Testing: Update baselines with confirmed changes"
+          body: |
+            This PR updates baseline screenshots based on confirmed visual changes.
+            
+            Changes were automatically confirmed and processed by the OpenAI visual testing workflow.
+          branch: openai-visual-testing-updates-${{ github.run_id }}
+          base: ${{ github.head_ref || github.ref_name }}
+          labels: |
+            automated-fix
+            visual-testing
+            openai

@@ -1,0 +1,96 @@
+name: Process Confirmation Changes
+
+on:
+  # Manual triggering only - no automatic hourly runs
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to process confirmations for'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - development
+  # Optional: Run daily instead of hourly (uncomment if you want scheduled runs)
+  # schedule:
+  #   # Run once daily at 2 AM UTC instead of every hour
+  #   - cron: '0 2 * * *'
+
+jobs:
+  process-confirmations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup environment
+        run: npm run setup
+      
+      - name: Download confirmation data
+        run: |
+          # Create necessary directories
+          mkdir -p reports/intent-confirmations
+          
+          # Download confirmation data from GitHub Pages
+          REPO_OWNER=$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 1)
+          REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 2)
+          
+          # Try to download confirmations file - won't fail if not exists
+          curl -s -o reports/intent-confirmations/confirmations.json "https://$REPO_OWNER.github.io/$REPO_NAME/confirmations.json" || true
+          curl -s -o reports/intent-confirmations/pending.json "https://$REPO_OWNER.github.io/$REPO_NAME/pending.json" || true
+          
+          # Check if files exist and have content
+          if [ -s reports/intent-confirmations/confirmations.json ] || [ -s reports/intent-confirmations/pending.json ]; then
+            echo "Downloaded confirmation data successfully"
+          else
+            echo "No confirmation data found or downloads failed"
+            # Create empty files to prevent errors
+            echo "{}" > reports/intent-confirmations/confirmations.json
+            echo "{}" > reports/intent-confirmations/pending.json
+          fi
+      
+      - name: Process confirmations
+        id: process
+        run: |
+          # Run the confirmation processing script
+          node process-confirmations.js
+          
+          # Set output based on the result
+          if [ $? -eq 0 ]; then
+            echo "CHANGES_PROCESSED=true" >> $GITHUB_ENV
+          else
+            echo "CHANGES_PROCESSED=false" >> $GITHUB_ENV
+          fi
+      
+      - name: Create PR with baseline updates
+        if: env.CHANGES_PROCESSED == 'true'
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          commit-message: "Update baselines based on user confirmations"
+          title: "Update baselines based on user confirmations"
+          body: |
+            This PR updates baseline images based on user confirmations.
+            
+            Changes were processed by the automatic confirmation system.
+          branch: baseline-updates-${{ github.run_id }}
+          base: ${{ github.event.inputs.environment == 'production' && 'main' || github.event.inputs.environment == 'staging' && 'develop' || 'develop' }}
+          labels: |
+            automated-update
+            visual-testing
+            user-confirmed
+          delete-branch: true

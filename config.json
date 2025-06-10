@@ -1,0 +1,25 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 3000
+  },
+  "screenshots": {
+    "directory": "./screenshots",
+    "viewportWidth": 1280,
+    "viewportHeight": 800
+  },
+  "comparison": {
+    "threshold": 0.1,
+    "diffColor": "#FF0000"
+  },
+  "ai": {
+    "textModel": "llama3.2",
+    "visionModel": "llava",
+    "temperature": 0.2,
+    "useGPU": true,
+    "maxConcurrentRequests": 2
+  },
+  "reporting": {
+    "directory": "./reports"
+  }
+}

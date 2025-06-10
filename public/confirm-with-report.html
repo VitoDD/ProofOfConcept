@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Change Confirmation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    .comparison-container {
+      margin-bottom: 2rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      overflow: hidden;
+    }
+    
+    .comparison-header {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .images-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .image-box {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+    
+    .image-box img {
+      max-width: 100%;
+      border: 1px solid #dee2e6;
+    }
+    
+    .image-label {
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    
+    .actions {
+      padding: 1rem;
+      border-top: 1px solid #dee2e6;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .loading-spinner {
+      width: 3rem;
+      height: 3rem;
+    }
+    
+    .no-confirmations {
+      padding: 3rem;
+      text-align: center;
+      background-color: #f8f9fa;
+      border-radius: 0.25rem;
+    }
+
+    .result-message {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0.25rem;
+    }
+
+    .result-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .result-error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .image-details {
+      background-color: #f8f9fa;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .reports-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background-color: #f0f8ff;
+      border-radius: 0.25rem;
+      border-left: 5px solid #0d6efd;
+    }
+    
+    .report-card {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Visual Change Confirmation</h1>
+    
+    <div class="alert alert-info mb-4">
+      <strong>Instructions:</strong> Review each visual change below. If the change is intentional, click "Approve" to update the baseline. If not, click "Reject" to keep the original baseline.
+    </div>
+
+    <div id="result-message" class="result-message" style="display: none;"></div>
+    
+    <!-- Latest Report Section -->
+    <div class="reports-section mb-4">
+      <h3>Latest Visual Testing Report</h3>
+      <div id="latest-report-container">
+        <div class="text-center p-3" id="report-loading">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading report...</span>
+          </div>
+          <span class="ms-2">Finding latest report...</span>
+        </div>
+        
+        <div id="report-content" style="display: none;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Phase 4 Visual Testing Report</h5>
+              <p class="card-text" id="report-date"></p>
+              <a href="#" id="report-link" class="btn btn-primary">Open Full Report</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="pending-confirmations">
+      <div class="text-center p-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading pending confirmations...</p>
+      </div>
+    </div>
+    
+    <div class="mt-5">
+      <h2>Processed Confirmations</h2>
+      <div id="processed-confirmations">
+        <div class="text-center p-5">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading processed confirmations...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="spinner-border text-light loading-spinner" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+  <script>
+    // Find the latest report when page loads
+    async function findLatestReport() {
+      try {
+        document.getElementById('report-loading').style.display = 'block';
+        document.getElementById('report-content').style.display = 'none';
+        
+        // Get list of files in the reports directory
+        const response = await fetch('/reports/');
+        
+        if (!response.ok) {
+          throw new Error('Failed to list reports directory');
+        }
+        
+        const html = await response.text();
+        
+        // Parse the HTML to find all links to HTML files
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const links = Array.from(doc.querySelectorAll('a'))
+          .filter(a => a.href.endsWith('.html') && a.href.includes('phase4-report'))
+          .map(a => a.href);
+        
+        if (links.length === 0) {
+          document.getElementById('report-loading').style.display = 'none';
+          document.getElementById('report-content').style.display = 'block';
+          document.getElementById('report-link').href = '#';
+          document.getElementById('report-date').textContent = 'No reports found';
+          document.getElementById('report-link').classList.add('disabled');
+          return;
+        }
+        
+        // Sort by date in filename (assuming format includes a timestamp)
+        links.sort((a, b) => {
+          const getTimestamp = url => {
+            const match = url.match(/\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}/);
+            return match ? match[0] : '';
+          };
+          
+          return getTimestamp(b).localeCompare(getTimestamp(a));
+        });
+        
+        // Get the latest report
+        const latestReport = links[0];
+        
+        // Convert the URL to a relative path
+        const url = new URL(latestReport);
+        const relativePath = url.pathname;
+        
+        // Extract the date from the filename
+        const dateMatch = relativePath.match(/\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}/);
+        const dateStr = dateMatch ? dateMatch[0].replace(/T/, ' ').replace(/-/g, ':') : 'Recent';
+        
+        // Update the UI
+        document.getElementById('report-link').href = relativePath;
+        document.getElementById('report-date').textContent = `Generated: ${dateStr}`;
+        document.getElementById('report-loading').style.display = 'none';
+        document.getElementById('report-content').style.display = 'block';
+        
+      } catch (error) {
+        console.error('Error finding latest report:', error);
+        
+        // Show error in UI
+        document.getElementById('report-loading').style.display = 'none';
+        document.getElementById('report-content').style.display = 'block';
+        document.getElementById('report-link').href = '#';
+        document.getElementById('report-date').textContent = 'Error finding reports';
+        document.getElementById('report-link').classList.add('disabled');
+      }
+    }
+
+    // Function to load confirmations
+    async function loadConfirmations() {
+      try {
+        showLoading();
+        const response = await fetch('/api/intent-confirmations');
+        
+        if (!response.ok) {
+          throw new Error('Failed to load confirmations');
+        }
+        
+        const data = await response.json();
+        renderPendingConfirmations(data.pending);
+        renderProcessedConfirmations(data.processed);
+      } catch (error) {
+        console.error('Error loading confirmations:', error);
+        
+        document.getElementById('pending-confirmations').innerHTML = `
+          <div class="alert alert-danger">
+            Failed to load confirmations: ${error.message}
+          </div>
+        `;
+      } finally {
+        hideLoading();
+      }
+    }
+    
+    // Function to render pending confirmations
+    function renderPendingConfirmations(confirmations) {
+      const container = document.getElementById('pending-confirmations');
+      
+      if (!confirmations || confirmations.length === 0) {
+        container.innerHTML = `
+          <div class="no-confirmations">
+            <p class="text-muted">No pending confirmations found.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      
+      confirmations.forEach(confirmation => {
+        const baseImageName = getBaseFilename(confirmation.issue.baselineImagePath);
+        const currentImageName = getBaseFilename(confirmation.issue.currentImagePath);
+        const diffImageName = getBaseFilename(confirmation.issue.diffImagePath);
+
+        html += `
+          <div class="comparison-container" data-id="${confirmation.id}">
+            <div class="comparison-header">
+              <h3>${confirmation.name}</h3>
+              <p class="text-muted mb-0">Reported on ${new Date(confirmation.timestamp).toLocaleString()}</p>
+              ${confirmation.issue.diffPercentage ? `<p class="text-danger">Difference: ${confirmation.issue.diffPercentage.toFixed(2)}% (${confirmation.issue.diffPixelCount} pixels)</p>` : ''}
+            </div>
+            
+            <div class="images-container">
+              <div class="image-box">
+                <div class="image-label">Baseline</div>
+                <img src="/screenshots/baseline/${baseImageName}" alt="Baseline Image" onerror="this.src='/api/images/baseline/${baseImageName}'; this.onerror=null;">
+                <div class="image-details">${baseImageName}</div>
+              </div>
+              
+              <div class="image-box">
+                <div class="image-label">Current</div>
+                <img src="/screenshots/current/${currentImageName}" alt="Current Image" onerror="this.src='/api/images/current/${currentImageName}'; this.onerror=null;">
+                <div class="image-details">${currentImageName}</div>
+              </div>
+              
+              <div class="image-box">
+                <div class="image-label">Difference</div>
+                <img src="/screenshots/diff/${diffImageName}" alt="Difference Image" onerror="this.src='/api/images/diff/${diffImageName}'; this.onerror=null;">
+                <div class="image-details">${diffImageName}</div>
+              </div>
+            </div>
+            
+            <div class="actions">
+              <button type="button" class="btn btn-danger" onclick="processConfirmation('${confirmation.id}', false)">
+                Reject
+              </button>
+              <button type="button" class="btn btn-success" onclick="processConfirmation('${confirmation.id}', true)">
+                Approve
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    // Function to render processed confirmations
+    function renderProcessedConfirmations(confirmations) {
+      const container = document.getElementById('processed-confirmations');
+      
+      if (!confirmations || confirmations.length === 0) {
+        container.innerHTML = `
+          <div class="no-confirmations">
+            <p class="text-muted">No processed confirmations found.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      
+      confirmations.forEach(confirmation => {
+        // Determine the status label and class
+        const statusClass = confirmation.isIntended ? 'text-success' : 'text-danger';
+        const statusLabel = confirmation.isIntended ? 'Approved' : 'Rejected';
+        const baselineUpdatedLabel = confirmation.baselineUpdated ? ' (Baseline Updated)' : '';
+        const baselineUpdateError = confirmation.baselineUpdateError || '';
+        
+        const baseImageName = getBaseFilename(confirmation.issue.baselineImagePath);
+        const currentImageName = getBaseFilename(confirmation.issue.currentImagePath);
+        const diffImageName = getBaseFilename(confirmation.issue.diffImagePath);
+
+        html += `
+          <div class="comparison-container">
+            <div class="comparison-header d-flex justify-content-between align-items-center">
+              <div>
+                <h3>${confirmation.name}</h3>
+                <p class="text-muted mb-0">Processed on ${new Date(confirmation.confirmedAt).toLocaleString()}</p>
+                ${confirmation.issue.diffPercentage ? `<p class="text-muted">Difference: ${confirmation.issue.diffPercentage.toFixed(2)}% (${confirmation.issue.diffPixelCount} pixels)</p>` : ''}
+              </div>
+              <div class="badge ${statusClass === 'text-success' ? 'bg-success' : 'bg-danger'} fs-6">
+                ${statusLabel}${baselineUpdatedLabel}
+              </div>
+            </div>
+            
+            ${baselineUpdateError ? `<div class="alert alert-warning m-3">${baselineUpdateError}</div>` : ''}
+            
+            <div class="images-container">
+              <div class="image-box">
+                <div class="image-label">Baseline</div>
+                <img src="/screenshots/baseline/${baseImageName}" alt="Baseline Image" onerror="this.src='/api/images/baseline/${baseImageName}'; this.onerror=null;">
+                <div class="image-details">${baseImageName}</div>
+              </div>
+              
+              <div class="image-box">
+                <div class="image-label">Current</div>
+                <img src="/screenshots/current/${currentImageName}" alt="Current Image" onerror="this.src='/api/images/current/${currentImageName}'; this.onerror=null;">
+                <div class="image-details">${currentImageName}</div>
+              </div>
+              
+              <div class="image-box">
+                <div class="image-label">Difference</div>
+                <img src="/screenshots/diff/${diffImageName}" alt="Difference Image" onerror="this.src='/api/images/diff/${diffImageName}'; this.onerror=null;">
+                <div class="image-details">${diffImageName}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    // Function to process a confirmation
+    async function processConfirmation(id, isIntended) {
+      try {
+        showLoading();
+        
+        const response = await fetch(`/api/intent-confirmations/${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ isIntended })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to process confirmation');
+        }
+
+        const data = await response.json();
+        
+        // Show success message
+        const messageEl = document.getElementById('result-message');
+        messageEl.className = 'result-message result-success';
+        messageEl.innerHTML = `
+          <strong>Success!</strong> The visual change has been ${isIntended ? 'approved' : 'rejected'}.
+          ${isIntended && data.result.baselineUpdated ? ' The baseline has been updated.' : ''}
+          ${isIntended && data.result.baselineUpdateError ? ` However, there was an error updating the baseline: ${data.result.baselineUpdateError}` : ''}
+        `;
+        messageEl.style.display = 'block';
+        
+        // Automatically hide the message after 5 seconds
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+        
+        // Reload confirmations
+        await loadConfirmations();
+      } catch (error) {
+        console.error('Error processing confirmation:', error);
+        
+        // Show error message
+        const messageEl = document.getElementById('result-message');
+        messageEl.className = 'result-message result-error';
+        messageEl.innerHTML = `<strong>Error:</strong> Failed to process confirmation: ${error.message}`;
+        messageEl.style.display = 'block';
+      } finally {
+        hideLoading();
+      }
+    }
+    
+    // Helper function to extract the base filename from a path
+    function getBaseFilename(filePath) {
+      if (!filePath) return '';
+      
+      // If it's already just a filename, return it
+      if (!filePath.includes('/') && !filePath.includes('\\')) {
+        return filePath;
+      }
+      
+      // Otherwise extract the filename
+      const parts = filePath.split(/[\/\\]/);
+      return parts[parts.length - 1];
+    }
+    
+    // Function to show loading overlay
+    function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+    }
+    
+    // Function to hide loading overlay
+    function hideLoading() {
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+    
+    // Load everything when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      loadConfirmations();
+      findLatestReport();
+    });
+  </script>
+</body>
+</html>

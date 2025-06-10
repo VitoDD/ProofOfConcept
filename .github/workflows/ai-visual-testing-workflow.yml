@@ -1,0 +1,158 @@
+name: AI Visual Testing Workflow
+
+on:
+  # Manual triggering only - no automatic runs
+  workflow_dispatch:
+    inputs:
+      run_type:
+        description: 'Type of test to run'
+        required: true
+        default: 'comprehensive'
+        type: choice
+        options:
+          - comprehensive
+          - baseline-only
+          - bug-test
+          - revert-bugs
+
+jobs:
+  visual-testing:
+    runs-on: self-hosted
+    permissions:
+      contents: write  # Required for gh-pages deployment
+      pull-requests: write  # Required for creating PRs
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This ensures we have full history and depth
+          # Needed for creating PRs from the workflow
+          fetch-depth: 0
+          # Use PAT instead of GITHUB_TOKEN for cross-repo operations
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup Ollama and dependencies
+        shell: cmd
+        run: |
+          REM Check if Ollama is running
+          tasklist /FI "IMAGENAME eq ollama.exe" 2>NUL | find /I /N "ollama.exe">NUL
+          if not "%ERRORLEVEL%"=="0" (
+            echo Starting Ollama service...
+            start "" ollama serve
+            timeout /t 10 /nobreak
+          )
+          
+          REM Ensure models are available
+          ollama pull llama3.2
+          ollama pull llava
+      
+      - name: Setup environment
+        run: npm run setup
+      
+      - name: Revert any existing bugs
+        if: github.event.inputs.run_type == 'revert-bugs' || github.event.inputs.run_type == 'comprehensive'
+        shell: cmd
+        run: npm run revert-bug
+        
+      - name: Run baseline capture only
+        if: github.event.inputs.run_type == 'baseline-only'
+        shell: cmd
+        run: npm run capture-baselines
+        
+      - name: Run bug test
+        if: github.event.inputs.run_type == 'bug-test'
+        shell: cmd
+        run: |
+          npm run comprehensive-bug
+          npm run comprehensive-test
+        
+      - name: Run comprehensive test
+        if: github.event.inputs.run_type == 'comprehensive'
+        shell: cmd
+        run: npm run comprehensive-test
+        
+      - name: Process confirmations
+        shell: cmd
+        run: npm run process-confirmations
+      
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-testing-reports
+          path: reports/
+          
+      - name: Set up report publication
+        shell: powershell
+        run: |
+          # Create a directory for the GitHub Pages content
+          New-Item -Path "gh-pages" -ItemType Directory -Force
+          
+          # Copy the latest report to the gh-pages directory
+          $latestReport = Get-ChildItem -Path "reports" -Filter "phase4-report-*.html" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if ($latestReport) {
+            Copy-Item $latestReport.FullName -Destination "gh-pages\index.html"
+            Write-Output "Copied latest report: $($latestReport.Name)"
+          } else {
+            Write-Output "No report found, creating placeholder"
+            Set-Content -Path "gh-pages\index.html" -Value "<html><body><h1>AI Visual Testing Report</h1><p>No reports available yet.</p></body></html>"
+          }
+          
+          # Copy the confirmation UI to gh-pages
+          Copy-Item "public\confirm.html" -Destination "gh-pages"
+          
+          # Copy confirmation data if it exists
+          if (Test-Path "reports\intent-confirmations") {
+            New-Item -Path "gh-pages" -ItemType Directory -Force
+            Get-ChildItem -Path "reports\intent-confirmations" -Filter "*.json" | ForEach-Object {
+              Copy-Item $_.FullName -Destination "gh-pages"
+            }
+            Write-Output "Copied confirmation data"
+          } else {
+            Write-Output "No confirmation data found, creating empty files"
+            Set-Content -Path "gh-pages\confirmations.json" -Value "{}"
+            Set-Content -Path "gh-pages\pending.json" -Value "{}"
+          }
+          
+          # Copy screenshots if they exist
+          New-Item -Path "gh-pages\screenshots" -ItemType Directory -Force
+          if (Test-Path "screenshots") {
+            Copy-Item "screenshots\*" -Destination "gh-pages\screenshots" -Recurse -Force
+            Write-Output "Copied screenshots"
+          }
+          
+          # Create a simple README for the GitHub Pages site
+          Set-Content -Path "gh-pages\README.md" -Value "# AI Visual Testing Reports"
+          Add-Content -Path "gh-pages\README.md" -Value "This site contains reports and confirmation pages for the AI Visual Testing project."
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          force_orphan: true
+      
+      - name: Create Pull Request for confirmed changes
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          commit-message: "Visual Testing: Update baselines with confirmed changes"
+          title: "Visual Testing: Update baselines with confirmed changes"
+          body: |
+            This PR updates baseline screenshots based on confirmed visual changes.
+            
+            Changes were automatically confirmed and processed by the AI visual testing workflow.
+          branch: visual-testing-updates-${{ github.run_id }}
+          base: ${{ github.head_ref || github.ref_name }}
+          labels: |
+            automated-fix
+            visual-testing
