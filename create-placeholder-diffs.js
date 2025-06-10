@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { PNG } = require('pngjs');
 
 // Configuration
 const screenshotsDir = path.join(process.cwd(), 'screenshots');
@@ -29,12 +30,30 @@ function ensureDirectoriesExist() {
   });
 }
 
-// Create simple PNG placeholder image
+// Create a real PNG placeholder image
 function createPlaceholderPng(width, height, color, text) {
-  // This creates a very simple PNG in memory
-  // In a real implementation, you would use a library like 'pngjs'
-  // For simplicity, we're just creating a text file for now
-  return `This is a placeholder for a ${width}x${height} ${color} PNG image with text: ${text}`;
+  const png = new PNG({ width, height });
+  
+  // Set background color based on color parameter
+  let r = 128, g = 128, b = 128; // default gray
+  switch(color) {
+    case 'blue': r = 100; g = 150; b = 255; break;
+    case 'green': r = 100; g = 255; b = 150; break;
+    case 'red': r = 255; g = 100; b = 100; break;
+  }
+  
+  // Fill the image with the background color
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (width * y + x) << 2;
+      png.data[idx] = r;     // red
+      png.data[idx + 1] = g; // green
+      png.data[idx + 2] = b; // blue
+      png.data[idx + 3] = 255; // alpha (opacity)
+    }
+  }
+  
+  return PNG.sync.write(png);
 }
 
 // Create all required baseline, current, and diff images
