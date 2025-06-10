@@ -47,21 +47,52 @@ function fixGitHubPagesImages() {
       
       while ((match = imgRegex.exec(htmlContent)) !== null) {
         const imageSrc = match[1];
-        const imageFilename = path.basename(imageSrc);
+        let imageFilename = path.basename(imageSrc);
         
-        // Skip if it's already a simple filename (correct)
-        if (imageSrc === imageFilename) {
+        // Special handling for Phase 3/4 reports that use images without extensions
+        if (!imageFilename.includes('.')) {
+          // Try to find the actual image file with extension
+          const possibleExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+          let foundExtension = null;
+          
+          for (const ext of possibleExtensions) {
+            const testFilename = imageFilename + ext;
+            if (fs.existsSync(path.join('reports', testFilename)) || 
+                fs.existsSync(path.join('screenshots', 'baseline', testFilename)) ||
+                fs.existsSync(path.join('screenshots', 'current', testFilename)) ||
+                fs.existsSync(path.join('screenshots', 'diff', testFilename))) {
+              foundExtension = ext;
+              break;
+            }
+          }
+          
+          if (foundExtension) {
+            const newImageFilename = imageFilename + foundExtension;
+            console.log(`  Fixed image extension: ${imageSrc} -> ${newImageFilename}`);
+            
+            // Update the HTML content
+            htmlContent = htmlContent.replace(match[0], match[0].replace(imageSrc, newImageFilename));
+            modified = true;
+            imagesToCopy.add(newImageFilename);
+            continue;
+          }
+        }
+        
+        // Skip if it's already a simple filename with extension (correct)
+        if (imageSrc === imageFilename && imageFilename.includes('.')) {
           imagesToCopy.add(imageFilename);
           continue;
         }
         
         // Replace complex path with simple filename
-        const newHtml = htmlContent.replace(match[0], match[0].replace(imageSrc, imageFilename));
-        if (newHtml !== htmlContent) {
-          htmlContent = newHtml;
-          modified = true;
-          imagesToCopy.add(imageFilename);
-          console.log(`  Fixed image path: ${imageSrc} -> ${imageFilename}`);
+        if (imageSrc !== imageFilename) {
+          const newHtml = htmlContent.replace(match[0], match[0].replace(imageSrc, imageFilename));
+          if (newHtml !== htmlContent) {
+            htmlContent = newHtml;
+            modified = true;
+            imagesToCopy.add(imageFilename);
+            console.log(`  Fixed image path: ${imageSrc} -> ${imageFilename}`);
+          }
         }
       }
       
@@ -86,6 +117,9 @@ function fixGitHubPagesImages() {
       return;
     }
     
+    // Handle files without extensions (Phase 3/4 reports)
+    const baseFilename = imageFilename.replace(/\.(png|jpg|jpeg|gif)$/i, '');
+    
     // Try to find the image in various locations
     const searchPaths = [
       path.join('reports', imageFilename),
@@ -93,11 +127,17 @@ function fixGitHubPagesImages() {
       path.join('screenshots', 'current', imageFilename),
       path.join('screenshots', 'diff', imageFilename),
       // Also try with and without prefixes
-      path.join('reports', `baseline-${imageFilename}`),
-      path.join('reports', `current-${imageFilename}`),
-      path.join('reports', `diff-${imageFilename}`),
+      path.join('reports', `baseline-${baseFilename}.png`),
+      path.join('reports', `current-${baseFilename}.png`),
+      path.join('reports', `diff-${baseFilename}.png`),
+      path.join('reports', `${baseFilename}.png`),
+      // Try different extensions
+      path.join('reports', `${baseFilename}.jpg`),
+      path.join('reports', `${baseFilename}.jpeg`),
       // Try searching for files that end with the filename
-      ...findFilesByPattern(imageFilename)
+      ...findFilesByPattern(imageFilename),
+      ...findFilesByPattern(baseFilename + '.png'),
+      ...findFilesByPattern(baseFilename + '.jpg')
     ];
     
     let copied = false;
@@ -116,6 +156,11 @@ function fixGitHubPagesImages() {
     
     if (!copied) {
       console.warn(`  Not found: ${imageFilename}`);
+      // Try to find any file that matches the base name pattern
+      const foundFiles = findFilesByPattern(baseFilename);
+      if (foundFiles.length > 0) {
+        console.log(`    Similar files found: ${foundFiles.join(', ')}`);
+      }
     }
   });
   
@@ -126,12 +171,22 @@ function findFilesByPattern(filename) {
   const results = [];
   const directories = ['reports', 'screenshots'];
   
+  // Handle both exact filename and base filename patterns
+  const baseFilename = filename.replace(/\.(png|jpg|jpeg|gif)$/i, '');
+  
   directories.forEach(dir => {
     if (fs.existsSync(dir)) {
       try {
         const files = getAllFiles(dir);
         files.forEach(file => {
-          if (path.basename(file) === filename || file.endsWith(filename)) {
+          const fileBasename = path.basename(file);
+          const fileWithoutExt = fileBasename.replace(/\.(png|jpg|jpeg|gif)$/i, '');
+          
+          // Match exact filename or base filename
+          if (fileBasename === filename || 
+              fileWithoutExt === baseFilename ||
+              file.endsWith(filename) ||
+              fileBasename.includes(baseFilename)) {
             results.push(file);
           }
         });
