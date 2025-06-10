@@ -342,12 +342,42 @@ jobs:
           
           # List available reports for debugging
           echo "Available reports:"
-          find reports -name "*.html" 2>/dev/null || echo "No HTML reports found"
+          find reports -name "*.html" 2>/dev/null | sort -r || echo "No HTML reports found"
           
-          # Find the latest report - prioritize OpenAI reports
-          latest_report=$(find reports -name "report-openai-*.html" -o -name "phase4-report-*.html" -o -name "*openai*.html" -type f | sort -r | head -n 1)
+          # Debug: Show file sizes and types
+          echo "Report details:"
+          find reports -name "*.html" 2>/dev/null | while read report; do
+            size=$(stat -c%s "$report" 2>/dev/null || echo "unknown")
+            echo "  $report ($size bytes)"
+          done
+          
+          # Find the latest report - prioritize enhanced reports with code localization
+          # Priority: Phase 3/4 reports (with code features) > OpenAI reports > others
+          latest_report=""
+          
+          # First try to find Phase 3 or Phase 4 reports (these have code localization)
+          phase3_reports=$(find reports -name "phase3-report-*.html" -o -name "phase4-report-*.html" 2>/dev/null | sort -r | head -n 1)
+          if [ -n "$phase3_reports" ]; then
+            latest_report="$phase3_reports"
+            echo "🎯 Found enhanced report with code localization: $latest_report"
+            echo "This report includes UI-to-code mapping and issue localization features!"
+          else
+            # Fallback to regular OpenAI reports
+            openai_reports=$(find reports -name "report-openai-*.html" 2>/dev/null | sort -r | head -n 1)
+            if [ -n "$openai_reports" ]; then
+              latest_report="$openai_reports"
+              echo "Found OpenAI report: $latest_report"
+            else
+              # Final fallback to any HTML report
+              any_report=$(find reports -name "*.html" 2>/dev/null | sort -r | head -n 1)
+              if [ -n "$any_report" ]; then
+                latest_report="$any_report"
+                echo "Found basic report: $latest_report"
+              fi
+            fi
+          fi
           if [ -n "$latest_report" ]; then
-            echo "Copied latest report: $latest_report"
+            echo "Using report: $latest_report"
             
             # Fix image paths in the report and copy it to gh-pages
             echo "Fixing image paths in reports..."
@@ -368,15 +398,81 @@ jobs:
             echo "Running final GitHub Pages image fix..."
             npm run fix-github-pages-images
             
-            # Add report links to index.html
-            cat >> gh-pages/index.html << 'EOF'
+            # Copy all enhanced reports to GitHub Pages for access
+            echo "Copying all enhanced reports to GitHub Pages..."
+            find reports -name "phase3-report-*.html" -o -name "phase4-report-*.html" -o -name "report-openai-*.html" | while read report; do
+              if [ -f "$report" ]; then
+                report_name=$(basename "$report")
+                cp "$report" "gh-pages/$report_name" 2>/dev/null && echo "Copied report: $report_name" || echo "Failed to copy: $report_name"
+              fi
+            done
+            
+            # Add report links to index.html with enhanced description
+            report_type="OpenAI Visual Testing Report"
+            report_description="Latest results using GPT-4o models"
+            
+            # Check if this is an enhanced report with code features
+            if [[ "$latest_report" == *"phase3-report"* ]]; then
+              report_type="Enhanced Code Analysis Report"
+              report_description="AI analysis with code localization and issue mapping"
+            elif [[ "$latest_report" == *"phase4-report"* ]]; then
+              report_type="Self-Healing Report"
+              report_description="AI analysis with automated fix generation"
+            fi
+            
+            cat >> gh-pages/index.html << EOF
             
             <h2>📊 Latest Reports</h2>
             <a href="index-openai.html" class="report-link openai">
-              <strong>📈 OpenAI Visual Testing Report</strong>
-              <div>Latest results using GPT-4o models</div>
+              <strong>📈 $report_type</strong>
+              <div>$report_description</div>
             </a>
           EOF
+            
+            # Add links to all available enhanced reports
+            echo "Adding links to all available enhanced reports..."
+            
+            # Check for Phase 3 reports (Code Analysis)
+            phase3_count=$(find reports -name "phase3-report-*.html" 2>/dev/null | wc -l)
+            if [ "$phase3_count" -gt 0 ]; then
+              phase3_latest=$(find reports -name "phase3-report-*.html" 2>/dev/null | sort -r | head -n 1)
+              phase3_name=$(basename "$phase3_latest")
+              cat >> gh-pages/index.html << EOF
+            
+            <a href="$phase3_name" class="report-link">
+              <strong>🔍 Code Analysis Report</strong>
+              <div>UI-to-code mapping and issue localization ($phase3_count available)</div>
+            </a>
+          EOF
+            fi
+            
+            # Check for Phase 4 reports (Self-Healing)
+            phase4_count=$(find reports -name "phase4-report-*.html" 2>/dev/null | wc -l)
+            if [ "$phase4_count" -gt 0 ]; then
+              phase4_latest=$(find reports -name "phase4-report-*.html" 2>/dev/null | sort -r | head -n 1)
+              phase4_name=$(basename "$phase4_latest")
+              cat >> gh-pages/index.html << EOF
+            
+            <a href="$phase4_name" class="report-link">
+              <strong>🔧 Self-Healing Report</strong>
+              <div>Automated fix generation and application ($phase4_count available)</div>
+            </a>
+          EOF
+            fi
+            
+            # Check for regular OpenAI reports
+            openai_count=$(find reports -name "report-openai-*.html" 2>/dev/null | wc -l)
+            if [ "$openai_count" -gt 0 ] && [[ "$latest_report" != *"report-openai"* ]]; then
+              openai_latest=$(find reports -name "report-openai-*.html" 2>/dev/null | sort -r | head -n 1)
+              openai_name=$(basename "$openai_latest")
+              cat >> gh-pages/index.html << EOF
+            
+            <a href="$openai_name" class="report-link">
+              <strong>🤖 Standard AI Report</strong>
+              <div>Basic OpenAI visual analysis ($openai_count available)</div>
+            </a>
+          EOF
+            fi
           else
             echo "No reports found yet, creating placeholder"
             
