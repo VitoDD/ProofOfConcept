@@ -26,9 +26,8 @@ jobs:
     
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
-      PUPPETEER_SKIP_DOWNLOAD: true
-      PUPPETEER_CACHE_DIR: /home/runner/.cache/puppetee
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
+      PUPPETEER_CACHE_DIR: ~/.cache/puppeteer
     
     steps:
       - name: Check for OpenAI API Key
@@ -162,6 +161,10 @@ jobs:
       
       - name: Check for baseline issues and fix if needed
         run: |
+          # Fix any corrupted baseline images first
+          echo "Fixing baseline images..."
+          npm run fix-baseline-images
+          
           # Check if baselines exist and are compatible
           if [ -d "screenshots/baseline" ]; then
             echo "Baseline screenshots found, checking compatibility..."
@@ -484,7 +487,7 @@ jobs:
               <p>Reports will appear here after running the visual testing workflow.</p>
               <p><strong>To generate reports:</strong></p>
               <ol>
-                <li>Go to the <a href="https://github.com/kajee27/ai-visual-testing-poc/actions">Actions tab</a></li>
+                <li>Go to the <a href="https://github.com/VitoDD/ProofOfConcept/actions">Actions tab</a></li>
                 <li>Run the "OpenAI Visual Testing Workflow"</li>
                 <li>Select any phase (recommended: "all")</li>
                 <li>Wait for completion and refresh this page</li>
@@ -503,12 +506,12 @@ jobs:
             </a>
             
             <h2>📁 Resources</h2>
-            <a href="https://github.com/kajee27/ai-visual-testing-poc" class="report-link">
+            <a href="https://github.com/VitoDD/ProofOfConcept" class="report-link">
               <strong>📂 Source Repository</strong>
               <div>View the source code and documentation</div>
             </a>
             
-            <a href="https://github.com/kajee27/ai-visual-testing-poc/actions" class="report-link">
+            <a href="https://github.com/VitoDD/ProofOfConcept/actions" class="report-link">
               <strong>⚙️ GitHub Actions</strong>
               <div>Run workflows and view execution logs</div>
             </a>
@@ -611,7 +614,7 @@ jobs:
       - name: Display Pages URL
         run: |
           echo "🌐 GitHub Pages will be available at:"
-          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "https://VitoDD.github.io/ProofOfConcept/"
           echo ""
           echo "📝 Note: It may take 5-10 minutes for the site to become available"
           echo "📝 Make sure GitHub Pages is enabled in repository Settings → Pages"
