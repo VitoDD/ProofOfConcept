@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI Visual Testing Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .report-header {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .report-metadata {
+      display: flex;
+      justify-content: space-between;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    .comparison-item {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .comparison-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .comparison-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0;
+    }
+    .comparison-status {
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .status-pass {
+      background-color: #e6f7ed;
+      color: #2e7d32;
+    }
+    .status-fail {
+      background-color: #fae9e8;
+      color: #c62828;
+    }
+    .status-warning {
+      background-color: #fff8e1;
+      color: #ff8f00;
+    }
+    .image-comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .image-container {
+      flex: 1;
+      min-width: 300px;
+    }
+    .image-container img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .image-caption {
+      font-size: 0.9em;
+      margin-top: 8px;
+      color: #7f8c8d;
+      text-align: center;
+    }
+    .ai-analysis {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+    .ai-summary {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .metric {
+      background-color: #e3f2fd;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    .summary-table th,
+    .summary-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .summary-table th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
+    .summary-table tr:hover {
+      background-color: #f5f5f5;
+    }
+    .report-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      text-align: center;
+    }
+    .ai-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background-color: #6047ff;
+      color: white;
+      font-size: 0.8em;
+      margin-left: 8px;
+    }
+    .severity-HIGH {
+      color: #c62828;
+      font-weight: bold;
+    }
+    .severity-MEDIUM {
+      color: #ff8f00;
+      font-weight: bold;
+    }
+    .severity-LOW {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    .false-positive {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="report-header">
+    <h1>OpenAI Visual Testing Report <span class="ai-badge">OpenAI</span></h1>
+    <div class="report-metadata">
+      <span>Generated: Invalid Date</span>
+      <span>Total comparisons: 4</span>
+    </div>
+  </div>
+  
+  <div class="summary-section">
+    <h2>Summary</h2>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Screenshot</th>
+          <th>Difference</th>
+          <th>Severity</th>
+          <th>AI Assessment</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>full</td>
+            <td>0.00%</td>
+            <td class="severity-LOW">N/A</td>
+            <td>No differences detected</td>
+            <td>
+              <span class="comparison-status status-pass">
+                PASS
+              </span>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>header</td>
+            <td>0.00%</td>
+            <td class="severity-LOW">N/A</td>
+            <td>No differences detected</td>
+            <td>
+              <span class="comparison-status status-pass">
+                PASS
+              </span>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>main</td>
+            <td>0.00%</td>
+            <td class="severity-LOW">N/A</td>
+            <td>No differences detected</td>
+            <td>
+              <span class="comparison-status status-pass">
+                PASS
+              </span>
+            </td>
+          </tr>
+        
+          <tr>
+            <td>form</td>
+            <td>0.00%</td>
+            <td class="severity-LOW">N/A</td>
+            <td>No differences detected</td>
+            <td>
+              <span class="comparison-status status-pass">
+                PASS
+              </span>
+            </td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+  <h2>Detailed Results</h2>
+  
+  
+    <div class="comparison-item">
+      <div class="comparison-header">
+        <h3 class="comparison-title">full</h3>
+        <span class="comparison-status status-pass">
+          PASS
+        </span>
+      </div>
+      
+      <div class="metrics">
+        <div class="metric">Difference: 0.00%</div>
+        
+        
+        
+        
+      </div>
+      
+      <div class="image-comparison">
+        <div class="image-container">
+          <img src="baseline-full" alt="Baseline - full">
+          <div class="image-caption">Baseline</div>
+        </div>
+        <div class="image-container">
+          <img src="current-full" alt="Current - full">
+          <div class="image-caption">Current</div>
+        </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="comparison-item">
+      <div class="comparison-header">
+        <h3 class="comparison-title">header</h3>
+        <span class="comparison-status status-pass">
+          PASS
+        </span>
+      </div>
+      
+      <div class="metrics">
+        <div class="metric">Difference: 0.00%</div>
+        
+        
+        
+        
+      </div>
+      
+      <div class="image-comparison">
+        <div class="image-container">
+          <img src="baseline-header" alt="Baseline - header">
+          <div class="image-caption">Baseline</div>
+        </div>
+        <div class="image-container">
+          <img src="current-header" alt="Current - header">
+          <div class="image-caption">Current</div>
+        </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="comparison-item">
+      <div class="comparison-header">
+        <h3 class="comparison-title">main</h3>
+        <span class="comparison-status status-pass">
+          PASS
+        </span>
+      </div>
+      
+      <div class="metrics">
+        <div class="metric">Difference: 0.00%</div>
+        
+        
+        
+        
+      </div>
+      
+      <div class="image-comparison">
+        <div class="image-container">
+          <img src="baseline-main" alt="Baseline - main">
+          <div class="image-caption">Baseline</div>
+        </div>
+        <div class="image-container">
+          <img src="current-main" alt="Current - main">
+          <div class="image-caption">Current</div>
+        </div>
+        
+      </div>
+      
+      
+    </div>
+  
+    <div class="comparison-item">
+      <div class="comparison-header">
+        <h3 class="comparison-title">form</h3>
+        <span class="comparison-status status-pass">
+          PASS
+        </span>
+      </div>
+      
+      <div class="metrics">
+        <div class="metric">Difference: 0.00%</div>
+        
+        
+        
+        
+      </div>
+      
+      <div class="image-comparison">
+        <div class="image-container">
+          <img src="baseline-form" alt="Baseline - form">
+          <div class="image-caption">Baseline</div>
+        </div>
+        <div class="image-container">
+          <img src="current-form" alt="Current - form">
+          <div class="image-caption">Current</div>
+        </div>
+        
+      </div>
+      
+      
+    </div>
+  
+  
+  <div class="report-footer">
+    <p>Powered by AI-Enhanced Visual Testing with OpenAI GPT-4 Vision</p>
+  </div>
+</body>
+</html>
